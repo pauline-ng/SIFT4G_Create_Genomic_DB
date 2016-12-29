@@ -1,0 +1,39 @@
+# INPUT -- the download sites from ENSEMBL and the genetic code
+GENE_DOWNLOAD_SITE=ftp://ftp.ensemblgenomes.org/pub/bacteria/current//gtf//bacteria_11_collection/candidatus_carsonella_ruddii_pv/Candidatus_carsonella_ruddii_pv.ASM1036v1.34.gtf.gz
+PEP_FILE=ftp://ftp.ensemblgenomes.org/pub/bacteria/current//fasta//bacteria_11_collection/candidatus_carsonella_ruddii_pv/pep/Candidatus_carsonella_ruddii_pv.ASM1036v1.34.pep.all.fa.gz
+CHR_DOWNLOAD_SITE=ftp://ftp.ensemblgenomes.org/pub/bacteria/current//fasta//bacteria_11_collection/candidatus_carsonella_ruddii_pv/dna/
+GENETIC_CODE_TABLE=11
+GENETIC_CODE_TABLENAME=11
+MITO_GENETIC_CODE_TABLE=0
+MITO_GENETIC_CODE_TABLENAME=Unspecified
+
+# OUTPUT -- NEED TO BE SET BY USER
+PARENT_DIR=/mnt1/SIFT_databases//candidatus_carsonella_ruddii_pv
+ORG=candidatus_carsonella_ruddii_pv
+ORG_VERSION=ASM1036v1.34
+
+
+#Running SIFT 4G -- NEED TO BE SET BY USER
+SIFT4G_PATH=/mnt1/SIFT4G_2.0.0/bin/sift4g
+PROTEIN_DB=/mnt1/protein_db/uniprot90_Jul2016/uniref90.fasta
+COMPUTER=GIS-KATNISS
+
+
+# Sub-directories, don't need to change
+LOGFILE=Log.txt
+ZLOGFILE=Log2.txt
+GENE_DOWNLOAD_DEST=gene-annotation-src
+CHR_DOWNLOAD_DEST=chr-src
+FASTA_DIR=fasta
+SUBST_DIR=subst
+SIFT_SCORE_DIR=SIFT_predictions
+SINGLE_REC_BY_CHR_DIR=singleRecords/
+SINGLE_REC_WITH_SIFTSCORE_DIR=singleRecords_with_scores
+DBSNP_FINAL_OUTPUT_DIR=dbsnp_Output
+
+# Doesn't need to change
+FASTA_LOG=fasta.log
+INVALID_LOG=invalid.log
+PEPTIDE_LOG=peptide.log
+ENS_PATTERN=ENS
+SINGLE_RECORD_PATTERN=:change:_aa1valid_dbsnp.singleRecord
