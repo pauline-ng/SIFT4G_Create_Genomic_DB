@@ -38,6 +38,24 @@ It takes ~30 minutes for the database to be generated.
 ## Usage
 
     perl make-SIFT-db-all.pl -config <config_file> [--ensembl_download] 
+    
+### Creating a SIFT 4G Database based on Ensembl gene annotations  
+
+1. Set parameters in the config file  
+
+
+  a. Links to Ensembl genome and gene annotation files:*GENE_DOWNLOAD_SITE, PEP_FILE, CHR_DOWNLOAD_SITE, DBSNP_ORGANISM_DOWNLOAD_SITE (optional)*    
+  
+  b. Output  & SIFT4G Path: *SIFT4G_PATH, PROTEIN_DB, PARENT_DIR, ORG, ORG_VERSION*  
+  
+  c. Set genetic codes in *_GENETIC_CODE*  
+  
+2. Create the database:  
+
+    `perl make-SIFT-db-all.pl -config <config file> --ensembl_download`
+    
+3. Check and use the SIFT database (directions below.)
+
 
 ## Check the Database
 
