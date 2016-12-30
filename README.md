@@ -13,7 +13,7 @@ Create genomic databases with SIFT predictions. Input is an organism's genomic D
     git clone https://github.com/pauline-ng/SIFT4G_Create_Genomic_DB.git scripts_to_build_SIFT_db
 
 ## Test Installation
-Test that it works on C. ruddii, on of the smallest known genomes.
+Test that it works on C. ruddii, on of the smallest known genomes. Files will be automatically downloaded from Ensembl.
 
     cd test_files
 
@@ -35,6 +35,27 @@ After the above variables have been set, make the database:
 
 It takes ~30 minutes for the database to be generated.
 
+Homo sapiens example (~ 1 hour for MT and chr 21)
+
+    mkdir <PARENT_DIR>
+    mkdir <PARENT_DIR>/gene-annotation-src
+    mkdir <PARENT_DIR>/chr-src
+    mkdir <PARENT_DIR>/dbSNP
+
+Put genomic .fa.gz files in \<PARENT_DIR\>chr-src
+Put compressed gene annotation file (gtf.gz) in \<PARENT_DIR\>/gene-annotation-src
+
+Optional: Put compressed dbSNP VCF file in \<PARENT_DIR\>/dbSNP
+Optional: Put compressed protein file (.pep.all.fa.gz) in \<PARENT_DIR\>/gene-annotation-src  (used for checking)
+
+Set the parameters in the config file (see above)
+
+    perl make-SIFT-db-all.pl -config <config_file>
+
+Testing human (chr21 and MT only, ~2 hrs):
+
+    perl make-SIFT-db-all.pl -config test_files/homo-sapiens-test.txt
+    
 ## Usage
 
     perl make-SIFT-db-all.pl -config <config_file> [--ensembl_download] 
@@ -70,3 +91,22 @@ The SIFT database structure is decribed [here](http://sift-dna.org/sift4g/Annota
     java -jar <Path to SIFT4G_Annotator> -c -i <Path to input vcf file> -d <Path to SIFT4G database directory> -r <Path to your results folder> -t 
 
 Complete instructions [here](http://sift-dna.org/sift4g/AnnotateVariants.html)
+
+## Monitoring the Database Creation Process
+
+Because the database can take hours/days to complete, here is what to look for:
+
+| If the Terminal says .... |  Check the following: |
+| --- | --- |
+| `making single records file` |  `ls -lt <PARENT_DIR>/singleRecords/*` is being updated|
+| `make the fasta sequences` | `ls fasta/* | wc -l` number of files should be increasing |
+| \*processing database | SIFT 4G Algorithm is running |
+| `populating databases` | |
+
+
+
+    
+    
+
+
+
