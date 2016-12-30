@@ -18,7 +18,7 @@ Create genomic databases with SIFT predictions. Input is an organism's genomic D
 *C. ruddii* is a small genome and can quickly test if everything is working. Files will be automatically downloaded from Ensembl.
 
 1. In __test_files/candidatus_carsonella_ruddii_pv_config.txt__ , set *\<PARENT_DIR\>, \<SIFT4G_PATH\>, \<PROTEIN_DB\>*     
-[See config](#Configuration File)
+[See config](#configFile)
 
 2. Make the database:
 
@@ -46,13 +46,13 @@ Files are already provided in *test_files/homo_sapiens_small*
     
 It takes ~2 hours for human chr21 and mitochondria predictions to be generated in *\<PARENT_DIR\>/\<ORG_VERSION\>*.
 
-3.  [Check the database](#Check the Database)
+3.  [Check the database](#checkDB)
 
 ## Usage
 
     perl make-SIFT-db-all.pl -config <config_file> [--ensembl_download] 
     
-### Making a SIFT database from local genomic and gene annotation file (.gtf)
+### <a name="DBfromGTF"></a>Making a SIFT database from local genomic and gene annotation file (.gtf)
 
 1. Make a config file. 
 
@@ -99,7 +99,7 @@ Use this, if you have a gff file (like that supplied from Phytozyme)
 `mv FILENAME.mod.gtf [FILENAME].gtf`  
 `gzip [FILENAME].gtf`   
 
-2. Follow instructions for [building a database using a gtf file](#Making a SIFT database from local genomic and gene annotation file (.gtf))
+2. Follow instructions for [building a database using a gtf file](#DBfromGTF)
     
 ### Creating a SIFT 4G Database based on Ensembl gene annotations  
 
@@ -109,7 +109,7 @@ Use this, if you have a gff file (like that supplied from Phytozyme)
 
   a. Links to Ensembl genome and gene annotation files:*GENE_DOWNLOAD_SITE, PEP_FILE, CHR_DOWNLOAD_SITE, DBSNP_ORGANISM_DOWNLOAD_SITE (optional)*    
   
-  b. Output  & SIFT4G Path: *SIFT4G_PATH, PROTEIN_DB, PARENT_DIR, ORG, ORG_VERSION*  
+  b. Output and SIFT4G paths: *SIFT4G_PATH, PROTEIN_DB, PARENT_DIR, ORG, ORG_VERSION*  
   
   c. Set genetic codes in *_GENETIC_CODE*  
   
@@ -120,7 +120,7 @@ Use this, if you have a gff file (like that supplied from Phytozyme)
 3. Check and use the SIFT database (directions below.)
 
 
-## Check the Database
+## <a name="checkDB"></a>Check the Database
 
 The database is stored in \<PARENT_DIR\>/\<ORG_VERSION\>
 
@@ -134,7 +134,7 @@ The SIFT database structure is decribed [here](http://sift-dna.org/sift4g/Annota
 
 Complete instructions [here](http://sift-dna.org/sift4g/AnnotateVariants.html)
 
-## Configuration File
+## <a name="configFile"></a>Configuration File
 
 | Parameter | Description  |
 |--- | --- |
