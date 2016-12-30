@@ -23,9 +23,9 @@ Then make the database:
 
     perl make-SIFT-db-all.pl -config test_files/candidatus_carsonella_ruddii_pv_config.txt --ensembl_download 
 
-It takes ~30 minutes for this database to be generated.
+It takes ~30 minutes for this database to be generated in *\<PARENT_DIR\>/\<ORG_VERSION\>*.
 
-### Partial Homo sapiens example (~ 1 hour for MT and chr 21)
+### Partial Homo sapiens example 
 
 This example uses local files to build the database. The structure and placement of files is important.
 
@@ -33,9 +33,9 @@ In __test_files/homo_sapiens-test.txt__ , set *\<SIFT4G_PATH\>* and *\<PROTEIN_D
 
 Partial genomic DNA, gene annotation, and dbSNP annotations are provided in test_files/homo_sapiens_small
 
-Testing human (chr21 and MT only, ~2 hrs):
-
     perl make-SIFT-db-all.pl -config test_files/homo-sapiens-test.txt
+    
+It takes ~2 hours for human chr21 and mitochondria predictions to be generated in *\<PARENT_DIR\>/\<ORG_VERSION\>*.
     
 ## Usage
 
@@ -43,7 +43,9 @@ Testing human (chr21 and MT only, ~2 hrs):
     
 ### Making a SIFT database from local genomic and gene annotation file (.gtf)
 
-1. Make a config file. Use __test_files/homo_sapiens-test.txt__ for a template
+1. Make a config file. 
+
+   Use __test_files/homo_sapiens-test.txt__ as a template
 
  a. Set *\<PARENT_DIR\>, \<ORG\>, \<ORG_VERSION\>, \<SIFT4G_PATH\>, \<PROTEIN_DB\>*
     Optional: *\<DBSNP_VCF_FILE\>*
@@ -77,7 +79,8 @@ Testing human (chr21 and MT only, ~2 hrs):
     
 ### Creating a SIFT 4G Database based on Ensembl gene annotations  
 
-1. Set parameters in the config file
+1. Set parameters in the config file.  
+
    Use __test_files/candidatus_carsonella_ruddii_pv_config.txt__ as a template.
 
   a. Links to Ensembl genome and gene annotation files:*GENE_DOWNLOAD_SITE, PEP_FILE, CHR_DOWNLOAD_SITE, DBSNP_ORGANISM_DOWNLOAD_SITE (optional)*    
@@ -135,7 +138,8 @@ Because the database can take hours/days to complete, here is what to look for:
 | `making single records file` |  `ls -lt <PARENT_DIR>/singleRecords/*` is being updated |
 | `make the fasta sequences` | `ls fasta/* | wc -l` number of files should be increasing |
 | \*processing database | SIFT 4G Algorithm is running |
-| `populating databases` | `ls -lt <PARENT_DIR>/singleRecords_with_scores/*` is being updated |
+| `populating databases` | `ls SIFT_predictions/*` Inspect prediction files \  |
+|                        |   `ls -lt <PARENT_DIR>/singleRecords_with_scores/*` is being updated |
 
 
 
