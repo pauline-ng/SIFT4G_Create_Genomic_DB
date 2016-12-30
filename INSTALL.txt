@@ -1,5 +1,0 @@
-To run these scripts, Bioperl must be installed
-http://www.bioperl.org/wiki/Installing_BioPerl_on_Ubuntu_Server
-
-Specifically, running DB::Fasta (retrieving fasta sequences from a genome)
-
