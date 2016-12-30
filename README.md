@@ -22,11 +22,11 @@ Create genomic databases with SIFT predictions. Input is an organism's genomic D
 
 2. Make the database:
 
-    perl make-SIFT-db-all.pl -config test_files/candidatus_carsonella_ruddii_pv_config.txt --ensembl_download 
+    `perl make-SIFT-db-all.pl -config test_files/candidatus_carsonella_ruddii_pv_config.txt --ensembl_download` 
 
-It takes ~30 minutes for this database to be generated in *\<PARENT_DIR\>/\<ORG_VERSION\>*.
+   It takes ~30 minutes for this database to be generated in *\<PARENT_DIR\>/\<ORG_VERSION\>*.
 
-3. [Check the database](#Check the Database)
+3. [Check the database](#checkDB)
 
 ### Partial Homo sapiens example 
 
@@ -42,9 +42,9 @@ Files are already provided in *test_files/homo_sapiens_small*
 
 2.  Make the database:
 
-    perl make-SIFT-db-all.pl -config test_files/homo-sapiens-test.txt
+    `perl make-SIFT-db-all.pl -config test_files/homo-sapiens-test.txt`
     
-It takes ~2 hours for human chr21 and mitochondria predictions to be generated in *\<PARENT_DIR\>/\<ORG_VERSION\>*.
+    It takes ~2 hours for human chr21 and mitochondria predictions to be generated in *\<PARENT_DIR\>/\<ORG_VERSION\>*.
 
 3.  [Check the database](#checkDB)
 
