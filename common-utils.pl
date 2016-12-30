@@ -11,7 +11,7 @@
 
 use strict;
 
-sub getChr () {
+sub getChr  {
 	my ($gene_dir) = @_;
 	my $gene_file = `ls $gene_dir/*.gtf.gz`;
 	chomp ($gene_file);
@@ -20,28 +20,10 @@ sub getChr () {
 	foreach my $chr (@chr_array) {
 		chomp ($chr); 
 	}
-#	my ($chr_dir) = @_;
-#	my @chr_files = `ls $chr_dir/*.fa.gz`;
-#	my @chr_array;
-#	if (@chr_files == 0) {
-#		@chr_files = `ls $chr_dir/*.fa`;
-#	}	
-
-#	for (my $i= 0 ; $i < @chr_files; $i++) {
-#		$_ = $chr_files[$i];
-#		if ($chr_files[$i] =~ /chromosome/) {
-#			/chromosome\.(.*)\.fa/;
-#			push (@chr_array, $1);
-#		} elsif ($chr_files[$i] =~ /genome/) {   
-#                        /(.*)\.dna\.genome/;
-#                        push (@chr_array, $1);
-#		} 
-#	}
-#	print join ('\n', @chr_array);
 	return @chr_array;
 }
 
-sub readMeta() {
+sub readMeta {
     my ($metafile) = @_;
     my %results = ();
     open(META, "<$metafile") || die "Unable to open $metafile\n";
@@ -83,7 +65,7 @@ sub deldir {
     rmdir($dirtodel);
 }
 
-sub complement_base() {
+sub complement_base {
     my ($orig_base) = @_;
     if (uc($orig_base) eq "A") { return "T"; }
     elsif (uc($orig_base) eq "T") { return "A"; }
