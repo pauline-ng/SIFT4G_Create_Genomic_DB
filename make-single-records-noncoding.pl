@@ -31,10 +31,12 @@ my $outputdir = $meta_hash{"PARENT_DIR"} . "/". $meta_hash{"SINGLE_REC_BY_CHR_DI
 # Check and create directory if it does not exist. DO NOT RE-CREATE IF IT EXISTS!
 if (! -d $outputdir) {
     print "Output directory does not exist, it will be created.\n";
-    mkdir($outputdir, 0775);
+    make_dir($outputdir);
 } else {
    # remove existing files because this program appends to files
-   system ("rm $outputdir/*.singleRecords_noncoding");
+   if (glob ("$outputdir/*.singleRecords_noncoding")) {
+	   system ("rm $outputdir/*.singleRecords_noncoding");
+   }
 } 
 
 my $chr_dir =  $meta_hash{"PARENT_DIR"} . "/" . $meta_hash{"CHR_DOWNLOAD_DEST"};

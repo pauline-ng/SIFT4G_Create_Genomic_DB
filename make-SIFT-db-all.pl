@@ -54,7 +54,7 @@ if ($ensembl_download) {
 
 	print "download dbSNP files\n";
 	`perl download-dbSNP-files.pl $metafile`; 
-	if ($meta_hash{"DBSNP_VCF_FILE"} ne "") 
+	if (exists ($meta_hash{"DBSNP_VCF_FILE"}) && $meta_hash{"DBSNP_VCF_FILE"} ne "") 
 	{
 		print "splitting dbSNP file\n";
 		`perl split-dbSNP-by-chr.pl $metafile`;
@@ -80,7 +80,7 @@ print "done making single records template\n";
 
 print "making noncoding records file\n";
 `perl make-single-records-noncoding.pl $metafile`;
-print "done making noncoding cerocds\n";
+print "done making noncoding records\n";
 
 print "make the fasta sequences\n"; 
 `perl generate-fasta-subst-files-BIOPERL.pl $metafile`; 
@@ -102,11 +102,13 @@ print $sift4g_command;
 
 print "done getting all the scores\n";
 
-print "check quality of databases\n";
+print "populating databases\n";
 # check quality
 # Pauline to do , by chromosame in script
 
 `perl make-sift-scores-db-batch.pl $metafile`;
+
+print "checking the databases\n";
 system ("perl check_genes.pl $metafile");
 
 my @chromosomes =  getChr ($meta_hash{"PARENT_DIR"} . "/" . $meta_hash{"GENE_DOWNLOAD_DEST"});
@@ -114,7 +116,7 @@ my @chromosomes =  getChr ($meta_hash{"PARENT_DIR"} . "/" . $meta_hash{"GENE_DOW
 foreach my $chr (@chromosomes) {
 
         my $db_file = $meta_hash{"PARENT_DIR"} . "/" . $meta_hash{"SINGLE_REC_WITH_SIFTSCORE_DIR"} . "/" . $chr .  "_scores.Srecords.with_dbSNPid.sorted";
-        my $check_outfile = $meta_hash{"PARENT_DIR"}  .  "/" . $chr .  "_SIFTDB_stats.txt";
+        my $check_outfile = $meta_hash{"PARENT_DIR"}  .  "/" . $meta_hash{"ORG_VERSION"} . "/" . $chr .  "_SIFTDB_stats.txt";
         `python check_SIFTDB.py $db_file $check_outfile`;
 }
 
@@ -125,9 +127,10 @@ my $final_outfolder = $meta_hash{"PARENT_DIR"} ."/". $meta_hash{"ORG_VERSION"};
 system ("cp  $metafile $final_outfolder"); 
 
 # make some space
-my $rm_dir = $meta_hash{"PARENT_DIR"} . "/" . $meta_hash{"CHR_DOWNLOAD_DEST"} . "/*" ;
-system ("rm $rm_dir");
-$rm_dir = $meta_hash{"PARENT_DIR"} . "/" . $meta_hash{"SINGLE_REC_WITH_SIFTSCORE_DIR"} . "/*";
+my $zip_dir = $meta_hash{"PARENT_DIR"} . "/" . $meta_hash{"CHR_DOWNLOAD_DEST"} . "/*" ;
+print "zipping up $zip_dir\n";
+system ("gzip $zip_dir");
+my $rm_dir = $meta_hash{"PARENT_DIR"} . "/" . $meta_hash{"SINGLE_REC_WITH_SIFTSCORE_DIR"} . "/*";
 system ("rm $rm_dir");
 
 print "All done!\n";

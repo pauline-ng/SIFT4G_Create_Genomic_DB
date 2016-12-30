@@ -15,7 +15,6 @@
 
 
 use strict;
-require 'readMeta.pl';
 require 'common-utils.pl';
 
 if (scalar @ARGV != 1) {
@@ -30,7 +29,7 @@ my %meta_hash = %{$meta_href};
 my @chromosomes = getChr ( $meta_hash{"PARENT_DIR"} . "/" . $meta_hash{"GENE_DOWNLOAD_DEST"});
 
 my $final_outfolder = $meta_hash{"PARENT_DIR"} . "/" . $meta_hash{"ORG_VERSION"}  ; 
-system ("mkdir $final_outfolder");
+make_dir ($final_outfolder);
 
 foreach my $chr (@chromosomes) {
     #my $command = "perl make-single-records-BIOPERL.pl $metafile " . "chr" . $chr;

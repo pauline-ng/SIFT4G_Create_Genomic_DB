@@ -10,13 +10,13 @@ use LWP::Simple;
 
 # common, fungi, metazoa, bacteria, plants, protists 
 
-#my ($ensembl_root, $var_dir, $dbsnp_format, $collection_dir) = &set_according_to_type ("common", "");
+my ($ensembl_root, $var_dir, $dbsnp_format, $collection_dir) = &set_according_to_type ("common", "");
 #my ($ensembl_root, $var_dir, $dbsnp_format, $collection_dir) = &set_according_to_type ("plants", "");
 #my ($ensembl_root, $var_dir, $dbsnp_format, $collection_dir) = &set_according_to_type ("fungi", "");
 #my ($ensembl_root, $var_dir, $dbsnp_format, $collection_dir) = &set_according_to_type ("protists", "");
 #my ($ensembl_root, $var_dir, $dbsnp_format, $collection_dir) = &set_according_to_type ("metazoa", "");
 #my ($ensembl_root, $var_dir, $dbsnp_format, $collection_dir) = &set_according_to_type ("bacteria", "");
-my ($ensembl_root, $var_dir, $dbsnp_format, $collection_dir) = &set_according_to_type ("bacteria", "/bacteria_11_collection/");
+#my ($ensembl_root, $var_dir, $dbsnp_format, $collection_dir) = &set_according_to_type ("bacteria", "/bacteria_11_collection/");
 
 my $computer = "GIS-KATNISS";
 print "collection dir $collection_dir\n";
@@ -181,7 +181,7 @@ sub say_out_constants
         say OUT "SIFT_SCORE_DIR=SIFT_predictions";
         say OUT "SINGLE_REC_BY_CHR_DIR=singleRecords/";
         say OUT "SINGLE_REC_WITH_SIFTSCORE_DIR=singleRecords_with_scores";
-        say OUT "DBSNP_FINAL_OUTPUT_DIR=dbsnp_Output";
+        say OUT "DBSNP_DIR=dbSNP";
 
 
         say OUT "";

@@ -57,13 +57,14 @@ sub readMeta() {
 } #end readMeta
 
 
-sub trim() {
+sub trim {
     my ($str) = @_;
     if ($str ne "") {
 	$str =~ s/^\s+//;
 	$str =~ s/\s+$//;
     }
     return $str;
+
 }
 
 sub deldir {

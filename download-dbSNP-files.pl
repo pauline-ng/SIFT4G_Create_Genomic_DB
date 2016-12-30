@@ -30,8 +30,16 @@ if (exists ($meta_hash{"DBSNP_VCF_FILE"})) {
 	 @files_from_organism_site =  ($meta_hash{"DBSNP_VCF_FILE"});
 } 
 
-my $download_destination_dir = $meta_hash{"PARENT_DIR"} . "/". $meta_hash{"DBSNP_FINAL_OUTPUT_DIR"};
-
+my $download_destination_dir;
+if (exists ($meta_hash{"DBSNP_DIR"})) {
+	$download_destination_dir = $meta_hash{"PARENT_DIR"} . "/". $meta_hash{"DBSNP_DIR"};
+	if (!glob ("$download_destination_dir/*.vcf.gz")) {
+		print "No dbSNP VCF found\n";
+		exit (0);
+	}
+} else {
+	exit (0);
+}
 
 &download_dbSNP($organism_download_site, \@files_from_organism_site, $download_destination_dir);
 print "Completed.\n";

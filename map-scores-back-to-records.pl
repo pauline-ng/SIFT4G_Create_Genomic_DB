@@ -79,7 +79,7 @@ sub writeOutToFile() {
     my $outfilename = $_[2];
     if (! -d $outputdir) {
 	print "$outputdir does not exist, creating.\n"; # DO NOT RE-CREATE BECAUSE WE ARE GOING TO DO THIS CHR BY CHR
-	mkdir($outputdir, 0755);
+	make_dir($outputdir);
     }
     
     my @final_data = @{$data_aref};

@@ -2,7 +2,7 @@
 use strict;
 use Class::Struct;
 use Switch;
-require 'readMeta.pl';
+require 'common-utils.pl';
 
 struct Transcript => {
         transcript_id =>  '$',

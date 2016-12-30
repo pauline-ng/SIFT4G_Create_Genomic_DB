@@ -42,7 +42,7 @@ my ($matched, $total_num, $unmatched_href) = &performChecks($ensPep_href, $ourPe
 ### SUB ROUTINE ########################################
 sub getPeptideFile () {
 	my ($dir) = @_;
-	my @files = `ls $dir/*pep.all.fa.gz`;
+	my @files = glob ("$dir/*pep.all.fa.gz");
 	if (@files > 0) {
 		chomp ($files[0]);
 		return $files[0];

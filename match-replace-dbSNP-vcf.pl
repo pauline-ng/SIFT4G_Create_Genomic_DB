@@ -35,13 +35,17 @@ my %meta_hash = %{$meta_href};
 	my $noncodfile = $meta_hash{"PARENT_DIR"} . "/" . $meta_hash{"SINGLE_REC_BY_CHR_DIR"} . "/" . $chr_of_interest . ".singleRecords_noncoding";
 	my $new_noncod_file = $noncodfile . ".with_dbSNPid";
 
-	my $dbSNPFile = $meta_hash{"PARENT_DIR"} . "/" . $meta_hash{"DBSNP_FINAL_OUTPUT_DIR"} . "/" . "vcf_chr_" . $chr_of_interest . ".vcf.gz";
+	
+	my $dbSNPFile = "";
+	if (-e $meta_hash{"DBSNP_DIR"}) {
+		$dbSNPFile = $meta_hash{"PARENT_DIR"} . "/" . $meta_hash{"DBSNP_DIR"} . "/" . "vcf_chr_" . $chr_of_interest . ".vcf.gz";
+	}
 	my $newfile = $oldfile . ".with_dbSNPid";
 	my $errfile = $newfile . ".ERR";
 	my $logfile = $newfile . ".LOG";
 
 	my $dbsnp_href ;
-	if (-e $dbSNPFile) {
+	if (-e $dbSNPFile && $dbSNPFile ne "") {
 		$dbsnp_href = &getDBSNPData($dbSNPFile, $errfile);
 	} else {
 	 	# if dbSNP file does not exist
@@ -49,8 +53,8 @@ my %meta_hash = %{$meta_href};
 		$dbsnp_href = \%hash;
 	} 
 		
-		&matchAndWriteToFile($dbsnp_href, $oldfile, $newfile, $errfile, $logfile);
-		&matchAndWriteToFile($dbsnp_href, $noncodfile, $new_noncod_file, $errfile, $logfile);
+	&matchAndWriteToFile($dbsnp_href, $oldfile, $newfile, $errfile, $logfile);
+	&matchAndWriteToFile($dbsnp_href, $noncodfile, $new_noncod_file, $errfile, $logfile);
 
 exit (0);
 

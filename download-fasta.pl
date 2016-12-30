@@ -11,7 +11,7 @@
 
 
 use strict;
-require 'readMeta.pl';
+require 'common-utils.pl';
 
 if (scalar @ARGV != 1) {
     die "Usage: perl $0 <metafile>\n" .

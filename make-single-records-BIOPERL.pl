@@ -85,10 +85,12 @@ my $outputdir = $meta_hash{"PARENT_DIR"} . "/" . $meta_hash{"SINGLE_REC_BY_CHR_D
 # Check and create directory if it does not exist. DO NOT RE-CREATE IF IT EXISTS!
 if (! -d $outputdir) {
     print "Output directory does not exist, it will be created.\n";
-    mkdir($outputdir, 0775);
+    make_dir($outputdir);
 } else {
         #clean out files
-        system ("rm $outputdir/*.singleRecords");
+	if (glob ("$outputdir/*.singleRecords")) {
+        	system ("rm $outputdir/*.singleRecords");
+	}
 }
 
 my $region_in_gene = "CDS";
@@ -107,7 +109,7 @@ sub collectFastaSequence() {
 
     my $chr_dir = $meta_hash{"PARENT_DIR"} . "/". $meta_hash{"CHR_DOWNLOAD_DEST"};
     my $tmp_dir = $meta_hash{"PARENT_DIR"} . "/tmp";
-    if (! -d $tmp_dir) { mkdir($tmp_dir, 0755); }
+    if (! -d $tmp_dir) { make_dir($tmp_dir); }
     my $chr_file = $chr_dir . "/" . $chr_of_interest . ".fa.gz";
     my $tmp_file = $meta_hash{"PARENT_DIR"} . "/tmp/" . $chr_of_interest . "_fasta.tmp";
     my $cmd = "zcat $chr_file > $tmp_file";

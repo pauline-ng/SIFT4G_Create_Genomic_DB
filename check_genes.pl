@@ -77,8 +77,10 @@ sub get_genes_in_db
 	my $results_file = $mo_out_dir . "/CHECK_GENES.LOG";
 	open (OUT_RES, ">$results_file") || die "can't write to $results_file";
 	print OUT_RES "Chr\tGenes with SIFT Scores\tPos with SIFT scores\tPos with Confident Scores\n";
-	my $tmp_file = "/tmp/SIFT_tmp233_rm.txt";
-	system ("rm $tmp_file");
+	my $tmp_file = $meta_hash{"PARENT_DIR"}  . "/SIFT_tmp233_rm.txt";
+	if (-e $tmp_file) {
+		system ("rm $tmp_file");
+	}
 
 	my ($total_cds_gene_count_with_sift,$total_cds_gene_count, 
 		$total_cds_pos_with_sift_scores, 
