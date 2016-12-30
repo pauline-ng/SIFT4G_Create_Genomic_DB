@@ -13,44 +13,25 @@ Create genomic databases with SIFT predictions. Input is an organism's genomic D
     git clone https://github.com/pauline-ng/SIFT4G_Create_Genomic_DB.git scripts_to_build_SIFT_db
 
 ## Test Installation
+
+### C.ruddii example
 Test that it works on C. ruddii, on of the smallest known genomes. Files will be automatically downloaded from Ensembl.
 
     cd test_files
 
-Edit the config file for C. ruddii in test_files/candidatus_carsonella_ruddii_pv_config.txt    
-
-Set the following parameters: 
-
-| Parameter | Description  |
-|--- | --- |
-| SIFT4G_PATH | Path to the executable sift4g (installed in step 1 of Requirements) |
-| PROTEIN_DB | Path to the protein database (.fa or .fasta) |
-| PARENT_DIR    | Path where all the output will be generated. User must have write access. |
-| ORG           | Organism name, e.g. homo_sapiens, rat, etc. Should be one word and no special characters. |
-| ORG_VERSION   | The final prediction database will be in PARENT_DIR/ORG_VERSION |
+Set \<PARENT_DIR\>, \<SIFT4G_PATH\>, \<PROTEIN_DB\> in test_files/candidatus_carsonella_ruddii_pv_config.txt    
 
 After the above variables have been set, make the database:
 
     perl make-SIFT-db-all.pl -config test_files/candidatus_carsonella_ruddii_pv_config.txt --ensembl_download 
 
-It takes ~30 minutes for the database to be generated.
+It takes ~30 minutes for this database to be generated.
 
-Homo sapiens example (~ 1 hour for MT and chr 21)
+### Partial Homo sapiens example (~ 1 hour for MT and chr 21)
 
-    mkdir <PARENT_DIR>
-    mkdir <PARENT_DIR>/gene-annotation-src
-    mkdir <PARENT_DIR>/chr-src
-    mkdir <PARENT_DIR>/dbSNP
+Set \<SIFT4G_PATH\> and \<PROTEIN_DB\> in test_files/homo_sapiens-test.txt
 
-Put genomic .fa.gz files in \<PARENT_DIR\>chr-src
-Put compressed gene annotation file (gtf.gz) in \<PARENT_DIR\>/gene-annotation-src
-
-Optional: Put compressed dbSNP VCF file in \<PARENT_DIR\>/dbSNP
-Optional: Put compressed protein file (.pep.all.fa.gz) in \<PARENT_DIR\>/gene-annotation-src  (used for checking)
-
-Set the parameters in the config file (see above)
-
-    perl make-SIFT-db-all.pl -config <config_file>
+Partial genomic DNA, gene annotation, and dbSNP annotations are provided in test_files/homo_sapiens_small
 
 Testing human (chr21 and MT only, ~2 hrs):
 
@@ -59,6 +40,38 @@ Testing human (chr21 and MT only, ~2 hrs):
 ## Usage
 
     perl make-SIFT-db-all.pl -config <config_file> [--ensembl_download] 
+    
+### Making a SIFT database from local genomic and gene annotation file (.gtf)
+
+1. Make a config file. Use test_files/homo_sapiens-test.txt as your template
+
+ a. Set \<PARENT_DIR\>, \<ORG\>, \<ORG_VERSION\>, \<SIFT4G_PATH\>, \<PROTEIN_DB\>
+    Optional: \<DBSNP_VCF_FILE\>
+   
+    See config for details.
+
+2. Put the genomic fasta files and the gene annotation files in their proper place:
+
+   a. Make the folders:
+   
+    `mkdir <PARENT_DIR>
+    mkdir <PARENT_DIR>/gene-annotation-src
+    mkdir <PARENT_DIR>/chr-src
+    mkdir <PARENT_DIR>/dbSNP`
+
+   b. Put files in folders:
+   
+    Put genomic .fa.gz files in \<PARENT_DIR\>chr-src
+    Put compressed gene annotation file (gtf.gz) in \<PARENT_DIR\>/gene-annotation-src
+
+    Optional: Put compressed dbSNP VCF file in \<PARENT_DIR\>/dbSNP
+    Optional: Put compressed protein file (.pep.all.fa.gz) in \<PARENT_DIR\>/gene-annotation-src  (used for checking)
+
+3. Run command: 
+
+    perl make-SIFT-db-all.pl -config <config_file>
+    
+    
     
 ### Creating a SIFT 4G Database based on Ensembl gene annotations  
 
@@ -91,6 +104,16 @@ The SIFT database structure is decribed [here](http://sift-dna.org/sift4g/Annota
     java -jar <Path to SIFT4G_Annotator> -c -i <Path to input vcf file> -d <Path to SIFT4G database directory> -r <Path to your results folder> -t 
 
 Complete instructions [here](http://sift-dna.org/sift4g/AnnotateVariants.html)
+
+## Configuration File
+
+| Parameter | Description  |
+|--- | --- |
+| SIFT4G_PATH | Path to the executable sift4g (installed in step 1 of Requirements) |
+| PROTEIN_DB | Path to the protein database (.fa or .fasta) |
+| PARENT_DIR    | Path where all the output will be generated. User must have write access. |
+| ORG           | Organism name, e.g. homo_sapiens, rat, etc. Should be one word and no special characters. |
+| ORG_VERSION   | The final prediction database will be in PARENT_DIR/ORG_VERSION |
 
 ## Monitoring the Database Creation Process
 
