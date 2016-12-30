@@ -84,22 +84,28 @@ Files are already provided in *test_files/homo_sapiens_small*
     
 3. Run command: 
 
-    perl make-SIFT-db-all.pl -config <config_file>
+    `perl make-SIFT-db-all.pl -config <config_file>`
+    
+4. [Check the database](#checkDB)
+
+5. [Annotate a VCF file with your database](#annotate)
     
 ### Making a SIFT database from genomic DNA (.fa.gz) and gene annotation file (.gff)
 
 Use this, if you have a gff file (like that supplied from Phytozyme)
 
-1. Convert the gene annotation .gff file to a gtf file
+1. Download and install [gffread](https://github.com/gpertea/gffread)
 
-`mv <Phytozyme file (gff3.gz)> <GENE_DOWNLOAD_DEST>`  
-`gunzip <Phytozyme file (gff3.gz)>`  
-`gffread <Phytozyme file (gff3)> -T -o [FILENAME].gene.gtf`  
-`perl -pe 's/phytozomev10/protein_coding/g' [FILENAME].gene.gtf > FILENAME.mod.gtf`  
-`mv FILENAME.mod.gtf [FILENAME].gtf`  
-`gzip [FILENAME].gtf`   
+2. Convert the gene annotation .gff file to a gtf file
 
-2. Follow instructions for [building a database using a gtf file](#DBfromGTF)
+   `mv <Phytozyme file (gff3.gz)> <GENE_DOWNLOAD_DEST>`  
+   `gunzip <Phytozyme file (gff3.gz)>`  
+   `gffread <Phytozyme file (gff3)> -T -o [FILENAME].gene.gtf`  
+   `perl -pe 's/phytozomev10/protein_coding/g' [FILENAME].gene.gtf > FILENAME.mod.gtf`  
+   `mv FILENAME.mod.gtf [FILENAME].gtf`  
+   `gzip [FILENAME].gtf`   
+
+3. Follow instructions for [building a database using a gtf file](#DBfromGTF)
     
 ### Creating a SIFT 4G Database based on Ensembl gene annotations  
 
@@ -107,8 +113,9 @@ Use this, if you have a gff file (like that supplied from Phytozyme)
 
    Use __test_files/candidatus_carsonella_ruddii_pv_config.txt__ as a template.
 
-  a. Links to Ensembl genome and gene annotation files:*GENE_DOWNLOAD_SITE, PEP_FILE, CHR_DOWNLOAD_SITE, DBSNP_ORGANISM_DOWNLOAD_SITE (optional)*    
-  
+  a. Set weblinks to Ensembl genome and gene annotation files:*GENE_DOWNLOAD_SITE, PEP_FILE, CHR_DOWNLOAD_SITE, DBSNP_ORGANISM_DOWNLOAD_SITE (optional)*    
+     [Config file details](#configFile)
+     
   b. Output and SIFT4G paths: *SIFT4G_PATH, PROTEIN_DB, PARENT_DIR, ORG, ORG_VERSION*  
   
   c. Set genetic codes in *_GENETIC_CODE*  
@@ -117,18 +124,26 @@ Use this, if you have a gff file (like that supplied from Phytozyme)
 
     `perl make-SIFT-db-all.pl -config <config file> --ensembl_download`
     
-3. Check and use the SIFT database (directions below.)
+3. [Check the database](#checkDB)
 
+4. [Annotate a VCF file with your database](#annotate)
 
 ## <a name="checkDB"></a>Check the Database
 
 The database is stored in \<PARENT_DIR\>/\<ORG_VERSION\>
 
-    cd <PARENT_DIR>/<ORG_VERSION>
-SIFT4G_DB_STRUCTURE
+    `cd <PARENT_DIR>/<ORG_VERSION>`
+    `more <PARENT_DIR>/<ORG_VERSION>/CHECK_GENES.LOG`
+    
+The file CHECK_GENES.LOG contains a summary of SIFT predictions by chromosome. The last line is a summarizes predictions for the genome
+
+_ALL   # (#/#)  # (#/#) # (#/#)_  
+
+Your database is done if the percentages are high for the 3 different columns!
+
 The SIFT database structure is decribed [here](http://sift-dna.org/sift4g/AnnotateVariants.html#SIFT4G_DB_STRUCTURE)
 
-## Annotate VCF files with the SIFT Database
+## <a name="annotate"></a> Annotate VCF files with the SIFT Database
 
     java -jar <Path to SIFT4G_Annotator> -c -i <Path to input vcf file> -d <Path to SIFT4G database directory> -r <Path to your results folder> -t 
 
