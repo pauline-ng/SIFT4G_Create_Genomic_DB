@@ -74,11 +74,12 @@ Files are already provided in *test_files/homo_sapiens_small*
 
    b. Put files in folders:
    
-    Put genomic .fa.gz files in *\<PARENT_DIR\>chr-src*  
+    Put genomic .fa.gz files in *\<PARENT_DIR\>/chr-src*  
     Put compressed gene annotation file (gtf.gz) in *\<PARENT_DIR\>/gene-annotation-src*  
 
     Optional: Put compressed dbSNP VCF file in *\<PARENT_DIR\>/dbSNP*  
-    Optional: Put compressed protein file (.pep.all.fa.gz) in *\<PARENT_DIR\>/gene-annotation-src*  (used for checking)  
+    Optional: Put compressed protein file (.pep.all.fa.gz) in *\<PARENT_DIR\>/gene-annotation-src*    
+              This file is used for checking.  
 
     Example of the file structure can be found in *test_files/homo_sapiens_small*
     
@@ -130,24 +131,35 @@ Use this, if you have a gff file (like that supplied from Phytozyme)
 
 ## <a name="checkDB"></a>Check the Database
 
-The database is stored in \<PARENT_DIR\>/\<ORG_VERSION\>
+The database is stored in *\<PARENT_DIR\>/\<ORG_VERSION\>*
 
     `cd <PARENT_DIR>/<ORG_VERSION>`
     `more <PARENT_DIR>/<ORG_VERSION>/CHECK_GENES.LOG`
     
-The file CHECK_GENES.LOG contains a summary of SIFT predictions by chromosome. The last line is a summarizes predictions for the genome
+The file CHECK_GENES.LOG contains a summary of SIFT predictions by chromosome. There are 4 columns:
+  - Chr	 
+  - Genes with SIFT Scores  
+  - Pos with SIFT scores	 
+  - Pos with Confident Scores
+  
+The last line summarizes predictions for the entire genome:
 
-_ALL   # (#/#)  # (#/#) # (#/#)_  
+__ALL   # (#/#)  # (#/#) # (#/#)__  
 
-Your database is done if the percentages are high for the 3 different columns!
+Your database is done if the percentages are high for the last 3 different columns!
 
 The SIFT database structure is decribed [here](http://sift-dna.org/sift4g/AnnotateVariants.html#SIFT4G_DB_STRUCTURE)
 
 ## <a name="annotate"></a> Annotate VCF files with the SIFT Database
 
-    java -jar <Path to SIFT4G_Annotator> -c -i <Path to input vcf file> -d <Path to SIFT4G database directory> -r <Path to your results folder> -t 
+1. Download the SIFT 4G Annotator (a Java executable) [here](http://sift-dna.org/sift4g/AnnotateVariants.html)  
+
+2. Commandline:
+   `java -jar <Path to SIFT4G_Annotator> -c -i <Path to input vcf file> -d <Path to SIFT4G database directory> -r <Path to your results folder> -t`
 
 Complete instructions [here](http://sift-dna.org/sift4g/AnnotateVariants.html)
+
+---
 
 ## <a name="configFile"></a>Configuration File
 
@@ -168,6 +180,8 @@ Complete instructions [here](http://sift-dna.org/sift4g/AnnotateVariants.html)
 | MITO_GENETIC_CODE_TABLE |  	Fasta sequences named Mt, chrM, Mito will use this genetic code. (This is for mitochondrial sequences). To disable or edit this feature, edit the function chr_is_mito in dna_protein_subs.pl  | 
 | MITO_GENETIC_CODE_TABLENAME *(not used)* | String to remind user what MITO_GENETIC_CODE_TABLE is being used |
 
+---
+
 ## Monitoring the Database Creation Process
 
 Because the database can take hours/days to complete, here is what to look for:
@@ -177,7 +191,7 @@ Because the database can take hours/days to complete, here is what to look for:
 | `making single records file` |  `ls -lt <PARENT_DIR>/singleRecords/*` is being updated |
 | `make the fasta sequences` | `ls fasta/* | wc -l` number of files should be increasing |
 | \*processing database | SIFT 4G Algorithm is running |
-| `populating databases` | `ls SIFT_predictions/*` Inspect prediction files \  |
+| `populating databases` | `ls SIFT_predictions/*` Inspect the SIFT prediction files  |
 |                        |   `ls -lt <PARENT_DIR>/singleRecords_with_scores/*` is being updated |
 
 
