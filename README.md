@@ -61,7 +61,7 @@ Files are already provided in *test_files/homo_sapiens_small*
  a. Set *\<PARENT_DIR\>, \<ORG\>, \<ORG_VERSION\>, \<SIFT4G_PATH\>, \<PROTEIN_DB\>*
     Optional: *\<DBSNP_VCF_FILE\>*
    
-    See config for details.
+    [See config details](#configFile).
 
 2. Put the genomic fasta files and the gene annotation files in their proper place:
 
@@ -74,11 +74,11 @@ Files are already provided in *test_files/homo_sapiens_small*
 
    b. Put files in folders:
    
-    Put genomic .fa.gz files in *\<PARENT_DIR\>chr-src*
-    Put compressed gene annotation file (gtf.gz) in *\<PARENT_DIR\>/gene-annotation-src*
+    Put genomic .fa.gz files in *\<PARENT_DIR\>chr-src*  
+    Put compressed gene annotation file (gtf.gz) in *\<PARENT_DIR\>/gene-annotation-src*  
 
-    Optional: Put compressed dbSNP VCF file in *\<PARENT_DIR\>/dbSNP*
-    Optional: Put compressed protein file (.pep.all.fa.gz) in *\<PARENT_DIR\>/gene-annotation-src*  (used for checking)
+    Optional: Put compressed dbSNP VCF file in *\<PARENT_DIR\>/dbSNP*  
+    Optional: Put compressed protein file (.pep.all.fa.gz) in *\<PARENT_DIR\>/gene-annotation-src*  (used for checking)  
 
     Example of the file structure can be found in *test_files/homo_sapiens_small*
     
