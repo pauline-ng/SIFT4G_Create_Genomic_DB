@@ -15,28 +15,39 @@ Create genomic databases with SIFT predictions. Input is an organism's genomic D
 ## Test Installation
 
 ### C.ruddii example
-Test that it works on C. ruddii, on of the smallest known genomes. Files will be automatically downloaded from Ensembl.
+*C. ruddii* is a small genome and can quickly test if everything is working. Files will be automatically downloaded from Ensembl.
 
-In __test_files/candidatus_carsonella_ruddii_pv_config.txt__ , set *\<PARENT_DIR\>, \<SIFT4G_PATH\>, \<PROTEIN_DB\>*     
+1. In __test_files/candidatus_carsonella_ruddii_pv_config.txt__ , set *\<PARENT_DIR\>, \<SIFT4G_PATH\>, \<PROTEIN_DB\>*     
+[See config](#Configuration File)
 
-Then make the database:
+2. Make the database:
 
     perl make-SIFT-db-all.pl -config test_files/candidatus_carsonella_ruddii_pv_config.txt --ensembl_download 
 
 It takes ~30 minutes for this database to be generated in *\<PARENT_DIR\>/\<ORG_VERSION\>*.
 
+3. [Check the database](#Check the Database)
+
 ### Partial Homo sapiens example 
 
-This example uses local files to build the database. The structure and placement of files is important.
+This example uses local files to build a database of human chr21 and mitochondrial genes. 
 
-In __test_files/homo_sapiens-test.txt__ , set *\<SIFT4G_PATH\>* and *\<PROTEIN_DB\>* 
+Files are already provided in *test_files/homo_sapiens_small*
+   - Genomic DNA (.fa.gz)  
+   - Gene annotation (.gtf.gz)  
+   - dbSNP annotations (.vcf.gz) 
 
-Partial genomic DNA, gene annotation, and dbSNP annotations are provided in test_files/homo_sapiens_small
+
+1.  In __test_files/homo_sapiens-test.txt__ , set *\<SIFT4G_PATH\>* and *\<PROTEIN_DB\>* 
+
+2.  Make the database:
 
     perl make-SIFT-db-all.pl -config test_files/homo-sapiens-test.txt
     
 It takes ~2 hours for human chr21 and mitochondria predictions to be generated in *\<PARENT_DIR\>/\<ORG_VERSION\>*.
-    
+
+3.  [Check the database](#Check the Database)
+
 ## Usage
 
     perl make-SIFT-db-all.pl -config <config_file> [--ensembl_download] 
@@ -56,10 +67,10 @@ It takes ~2 hours for human chr21 and mitochondria predictions to be generated i
 
    a. Make the folders:
    
-    `mkdir <PARENT_DIR>
-    mkdir <PARENT_DIR>/gene-annotation-src
-    mkdir <PARENT_DIR>/chr-src
-    mkdir <PARENT_DIR>/dbSNP`
+    `mkdir <PARENT_DIR>`  
+    `mkdir <PARENT_DIR>/gene-annotation-src`  
+    `mkdir <PARENT_DIR>/chr-src`  
+    `mkdir <PARENT_DIR>/dbSNP`  
 
    b. Put files in folders:
    
@@ -75,7 +86,20 @@ It takes ~2 hours for human chr21 and mitochondria predictions to be generated i
 
     perl make-SIFT-db-all.pl -config <config_file>
     
-    
+### Making a SIFT database from genomic DNA (.fa.gz) and gene annotation file (.gff)
+
+Use this, if you have a gff file (like that supplied from Phytozyme)
+
+1. Convert the gene annotation .gff file to a gtf file
+
+`mv <Phytozyme file (gff3.gz)> <GENE_DOWNLOAD_DEST>`  
+`gunzip <Phytozyme file (gff3.gz)>`  
+`gffread <Phytozyme file (gff3)> -T -o [FILENAME].gene.gtf`  
+`perl -pe 's/phytozomev10/protein_coding/g' [FILENAME].gene.gtf > FILENAME.mod.gtf`  
+`mv FILENAME.mod.gtf [FILENAME].gtf`  
+`gzip [FILENAME].gtf`   
+
+2. Follow instructions for [building a database using a gtf file](#Making a SIFT database from local genomic and gene annotation file (.gtf))
     
 ### Creating a SIFT 4G Database based on Ensembl gene annotations  
 
