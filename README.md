@@ -116,10 +116,11 @@ __Directions for making a SIFT database from:__
     Optional: Put compressed dbSNP VCF file in *\<PARENT_DIR\>/dbSNP*  
     `mv *.vcf.gz <PARENT_DIR>/dbSNP`
     
-    Optional: Put compressed protein file (.pep.all.fa.gz) in *\<PARENT_DIR\>/gene-annotation-src*
+    Optional: Put compressed protein file (.pep.all.fa.gz) in *\<PARENT_DIR\>/gene-annotation-src*  
+    
     `mv *.pep.all.fa.gz <PARENT_DIR>/gene-annotation-src`
     
-              This file is used for checking.  
+    This file is used for checking.  
 
     Example of the file structure can be found in [test_files/homo_sapiens_small](./test_files/homo_sapiens_small)
     
@@ -144,7 +145,7 @@ Use this if you have a gff file (like that supplied from Phytozyme)
    `gunzip <*.gff3.gz>`  
    `gffread <*.gff3> -T -o [FILENAME].gene.gtf` 
    
-   # below command is for Phytozyme, to ensure 'protein_coding' is in 2nd column
+   `#below command is for Phytozyme, to ensure 'protein_coding' is in 2nd column`
    `perl -pe 's/phytozomev10/protein_coding/g' [FILENAME].gene.gtf > FILENAME.mod.gtf`  
    
    `mv FILENAME.mod.gtf [FILENAME].gtf`  
