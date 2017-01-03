@@ -17,7 +17,7 @@ Create genomic databases with SIFT predictions. Input is an organism's genomic D
 ### *C.ruddii* example
 *C. ruddii* is a small genome and can quickly test if everything is working. The genome and gene files are automatically downloaded from Ensembl.
 
-1. Set variables in configuration file.
+1. Set variables in configuration file.  
    `cd test_files/candidatus_carsonella_ruddii_pv_config.txt`
    
    Edit the config file to set *\<PARENT_DIR\>, \<SIFT4G_PATH\>, \<PROTEIN_DB\>*     
