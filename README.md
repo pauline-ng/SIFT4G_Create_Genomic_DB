@@ -6,7 +6,7 @@ Create genomic databases with SIFT predictions. Input is an organism's genomic D
 1. [SIFT 4G Algorithm](../../../../rvaser/sift4g)
 2. Perl  
   *DBI  
-  *[Bioperl](http://www.bioperl.org/wiki/Installing_BioPerl_on_Ubuntu_Server) for running DB::Fasta  
+  *[Bioperl](http://www.bioperl.org/) for running DB::Fasta  
   *LWP  
 
 ## Installation
