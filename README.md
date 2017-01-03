@@ -145,7 +145,7 @@ Use this if you have a gff file (like that supplied from Phytozyme)
    `gunzip <*.gff3.gz>`  
    `gffread <*.gff3> -T -o [FILENAME].gene.gtf` 
    
-   `#below command is for Phytozyme, to ensure 'protein_coding' is in 2nd column`
+   `#below command is for Phytozyme, to ensure 'protein_coding' is in 2nd column`  
    `perl -pe 's/phytozomev10/protein_coding/g' [FILENAME].gene.gtf > FILENAME.mod.gtf`  
    
    `mv FILENAME.mod.gtf [FILENAME].gtf`  
@@ -161,7 +161,7 @@ This will download genome and gene files directly from Ensembl with the option _
 
    Use __test_files/candidatus_carsonella_ruddii_pv_config.txt__ as a template.
 
-  a. Set weblinks to Ensembl genome and gene annotation files:*GENE_DOWNLOAD_SITE, PEP_FILE, CHR_DOWNLOAD_SITE*  
+  a. Set weblinks to Ensembl genome and gene annotation files: *GENE_DOWNLOAD_SITE, PEP_FILE, CHR_DOWNLOAD_SITE*  
      Optional: *DBSNP_ORGANISM_DOWNLOAD_SITE*    
      [Config file details](#configFile)
      
