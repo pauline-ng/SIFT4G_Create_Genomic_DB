@@ -95,10 +95,14 @@ my $combine_prot_fasta_command = "cat " .  $meta_hash{"PARENT_DIR"} . "/" . $met
 
 my $sift4g_command = $meta_hash{"SIFT4G_PATH"} .  " -d " . $meta_hash{"PROTEIN_DB"} . " -q " . $meta_hash{"PARENT_DIR"} . "/all_prot.fasta --subst " .  $meta_hash{"PARENT_DIR"} . "/" . $meta_hash{"SUBST_DIR"} . " --out " .  $meta_hash{"PARENT_DIR"} . "/" . $meta_hash{"SIFT_SCORE_DIR"} . " --sub-results " ;
 
-print $sift4g_command;
+print $sift4g_command . "\n";
 
 #`$siftsharp_command`;
 `$sift4g_command`;
+
+if ($? != 0) {
+        exit (-1);
+}
 
 print "done getting all the scores\n";
 
