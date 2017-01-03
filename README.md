@@ -39,15 +39,14 @@ Create genomic databases with SIFT predictions. Input is an organism's genomic D
 
 3. [Check the database](#checkDB)
 
-   The database should be in a folder named like:
-   `cd __candidatus_carsonella_ruddii_pv/ASM1036v1.34__`
+   The database should be in a folder named something like: candidatus_carsonella_ruddii_pv/ASM1036v1.34
    
 
 ### Partial *Homo sapiens* example 
 
-This example uses local files to build a database of human chr21 and mitochondrial genes. Do this exercise if you are building a SIFT database with a genome that is locally installed.
+This example uses local files to build a database of human chr21 and mitochondrial genes. Do this exercise if you are building a SIFT database with a genome that is on your local computer.
 
-Files are already provided in *test_files/homo_sapiens_small*
+Files are already provided in [scripts_to_build_SIFT_db/test_files/homo_sapiens_small](./test_files/homo_sapiens_small)
    - Genomic DNA (.fa.gz)  
    - Gene annotation (.gtf.gz)  
    - dbSNP annotations (.vcf.gz) 
@@ -55,15 +54,16 @@ Files are already provided in *test_files/homo_sapiens_small*
 
 1.  Set the variables in the config file.
 
-    `cd __scripts_to_build_SIFT_db/test_files/__`
+    `cd scripts_to_build_SIFT_db/test_files/`
     
     Set variables in the config file __homo_sapiens-test.txt__:   *\<SIFT4G_PATH\>* and *\<PROTEIN_DB\>*
     
-    Note that \<PARENT_DIR\> is __already__ set to ./test_files/homo_sapiens_small  SIFT scripts will look for the genome and gene annotation files in that folder (already provided for you in this example).
+    Note that \<PARENT_DIR\> is __already__ set to ./test_files/homo_sapiens_small  
+    SIFT scripts will look for the genome and gene annotation files in that folder (which are provided in this example).
 
 2.  Make the database:
 
-    `cd ..`
+    `cd ..`  
     `perl make-SIFT-db-all.pl -config test_files/homo-sapiens-test.txt`
     
     It takes ~2 hours for human chr21 and mitochondria predictions to be generated in *\<PARENT_DIR\>/\<ORG_VERSION\>*.
@@ -74,22 +74,23 @@ Files are already provided in *test_files/homo_sapiens_small*
 
     perl make-SIFT-db-all.pl -config <config_file> [--ensembl_download] 
     
-   Directions for making a SIFT database from: 
-    1.  [Ensembl download of genomic and gene annotation files](#DBfromEnsembl)
-    2.  [local genomic and gene annotation file (.gtf)](#DBfromGTF)
-    3.  [local genomic and gene annotation file (.gff)](#DBfromGFF)
+   __Directions for making a SIFT database from:__
+   
+    -  [Ensembl download of genomic and gene annotation files](#DBfromEnsembl)  
+    -  [local genomic and gene annotation file (.gtf)](#DBfromGTF)  
+    -  [local genomic and gene annotation file (.gff)](#DBfromGFF)  
     
 ### <a name="DBfromGTF"></a>Making a SIFT database from local genomic and gene annotation file (.gtf)
 
-1. Make a config file. 
+1. Create a config file. 
 
    a.  Use __test_files/homo_sapiens-test.txt__ as a template
 
-   `cd test_files/`
+   `cd test_files/`  
    `cp homo_sapiens-test.txt <my_org_config.txt>`
    
-   b. In \<my_org_config.txt\>, set *\<PARENT_DIR\>, \<ORG\>, \<ORG_VERSION\>, \<SIFT4G_PATH\>, \<PROTEIN_DB\>*
-      Check [GENETIC_CODE_TABLE](#configFile) is set correctly.  
+   b. In \<my_org_config.txt\>, set *\<PARENT_DIR\>, \<ORG\>, \<ORG_VERSION\>, \<SIFT4G_PATH\>, \<PROTEIN_DB\>*  
+      Check *GENETIC_CODE_TABLE* and *MITO_GENETIC_CODE_TABLE* is set correctly.  
       Optional to set: *\<DBSNP_VCF_FILE\>*
    
       [See config details](#configFile).
@@ -106,10 +107,19 @@ Files are already provided in *test_files/homo_sapiens_small*
    b. Move your files into the appropriate folders:
    
     Put compressed genomic fasta files (.fa.gz) in *\<PARENT_DIR\>/chr-src*  
+    
+    `mv *.fa.gz <PARENT_DIR>/chr-src`
+    
     Put compressed gene annotation file (gtf.gz) in *\<PARENT_DIR\>/gene-annotation-src*  
 
+    `mv *.gtf.gz <PARENT_DIR>/gene-annotation-src`
+    
     Optional: Put compressed dbSNP VCF file in *\<PARENT_DIR\>/dbSNP*  
-    Optional: Put compressed protein file (.pep.all.fa.gz) in *\<PARENT_DIR\>/gene-annotation-src*    
+    `mv *.vcf.gz <PARENT_DIR>/dbSNP`
+    
+    Optional: Put compressed protein file (.pep.all.fa.gz) in *\<PARENT_DIR\>/gene-annotation-src*
+    `mv *.pep.all.fa.gz <PARENT_DIR>/gene-annotation-src`
+    
               This file is used for checking.  
 
     Example of the file structure can be found in [test_files/homo_sapiens_small](./test_files/homo_sapiens_small)
@@ -129,26 +139,30 @@ Use this if you have a gff file (like that supplied from Phytozyme)
 1. Download and install [gffread](https://github.com/gpertea/gffread)
 
 2. Convert the gene annotation .gff file to a .gtf file (because SIFT processes gtf files).
-   Make sure column # in the gtf file says \'protein_coding\'
+   Make sure column 2 in the gtf file says 'protein_coding'
 
-   `mv <Phytozyme file (gff3.gz)> <GENE_DOWNLOAD_DEST>`  
-   `gunzip <Phytozyme file (gff3.gz)>`  
-   `gffread <Phytozyme file (gff3)> -T -o [FILENAME].gene.gtf`  
+   `mv <gff3.gz> <PARENT_DIR>/gene-annotation-src`  
+   `gunzip <*.gff3.gz>`  
+   `gffread <*.gff3> -T -o [FILENAME].gene.gtf` 
+   
+   # below command is for Phytozyme, to ensure 'protein_coding' is in 2nd column
    `perl -pe 's/phytozomev10/protein_coding/g' [FILENAME].gene.gtf > FILENAME.mod.gtf`  
+   
    `mv FILENAME.mod.gtf [FILENAME].gtf`  
    `gzip [FILENAME].gtf`   
 
-3. Follow instructions for [building a database using a gtf file](#DBfromGTF)
+3. Then follow instructions for [building a database using a gtf file](#DBfromGTF)
     
 ### <a name="DBfromEnsembl"></a>Creating a SIFT 4G Database based on Ensembl gene annotations  
 
-This will download genome and gene files from Ensembl with the option __--ensembl_download__
+This will download genome and gene files directly from Ensembl with the option __--ensembl_download__
 
 1. Set parameters in the config file.  
 
    Use __test_files/candidatus_carsonella_ruddii_pv_config.txt__ as a template.
 
-  a. Set weblinks to Ensembl genome and gene annotation files:*GENE_DOWNLOAD_SITE, PEP_FILE, CHR_DOWNLOAD_SITE, DBSNP_ORGANISM_DOWNLOAD_SITE (optional)*    
+  a. Set weblinks to Ensembl genome and gene annotation files:*GENE_DOWNLOAD_SITE, PEP_FILE, CHR_DOWNLOAD_SITE*  
+     Optional: *DBSNP_ORGANISM_DOWNLOAD_SITE*    
      [Config file details](#configFile)
      
   b. Set output paths: *PARENT_DIR, ORG, ORG_VERSION*  
@@ -187,7 +201,7 @@ Your database is __done__ if the percentages are high for the last 3 different c
 A SIFT database is made for each chromosome in the file \<chr\>.gz  The SIFT database structure is described [here](http://sift-dna.org/sift4g/AnnotateVariants.html#SIFT4G_DB_STRUCTURE)
 
     zcat <chr>.gz | more   # does it look all right?
-    zcat <chr>.gz | grep CDS | more # SIFT numeric scores will be in columns 10-12. If it says "NA", that's a problem
+    zcat <chr>.gz | grep CDS | more # SIFT numeric scores will be in columns 10-12. If too many rows say "NA", that's a problem
     
 ## <a name="annotate"></a> Annotate VCF files with the SIFT Database
 
