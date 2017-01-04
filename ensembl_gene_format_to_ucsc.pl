@@ -240,7 +240,7 @@ sub get_region_info {
         my @gene_desc = split (";", $gene_info_string);
         my %info;
         for (my $i = 0; $i <@gene_desc; $i++) {
-                my $_ = $gene_desc[$i];
+                $_ = $gene_desc[$i];
                 /(.*)"(.*)"/;
                 my $key = trim ($1);
                 my $val = trim ($2);
