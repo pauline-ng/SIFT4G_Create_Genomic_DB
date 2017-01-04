@@ -66,12 +66,19 @@ print "converting gene format to use-able input\n";
 print "done converting gene format\n";
 
 # decompress chromosome files so that Bio::DB can process them
-my $fasta_dir =  $meta_hash{"PARENT_DIR"} . "/" . $meta_hash{"CHR_DOWNLOAD_DEST"} . "/*";
-`gunzip $fasta_dir`; 
-# check that all DNA files finished downloading, otherwise do it again.
-# because all future programs won't work properly otherwise.
-if ($?) {
-	die "DNA files do not exist or did not unzip properly\n";
+my $fasta_dir =  $meta_hash{"PARENT_DIR"} . "/" . $meta_hash{"CHR_DOWNLOAD_DEST"} ;
+if (glob ("$fasta_dir/*.gz")) {
+        $fasta_dir .= "/*.gz";
+        `gunzip $fasta_dir`;
+        # check that all DNA files finished downloading, otherwise do it again.
+        # because all future programs won't work properly otherwise.
+        if ($?) {
+                die "DNA files do not exist or did not unzip properly\n";
+        }
+} elsif (glob ("$fasta_dir/*.fa") || glob ("$fasta_dir/*.fasta")) {
+        # *.fa or *.fasta files already exist
+} else {
+        die "no DNA fasta files in $fasta_dir\n";
 }
 
 print "making single records file\n"; 
