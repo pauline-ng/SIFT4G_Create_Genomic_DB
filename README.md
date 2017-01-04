@@ -64,7 +64,7 @@ Files are already provided in [scripts_to_build_SIFT_db/test_files/homo_sapiens_
 2.  Make the database:
 
     `cd ..`  
-    `perl make-SIFT-db-all.pl -config test_files/homo-sapiens-test.txt`
+    `perl make-SIFT-db-all.pl -config test_files/homo_sapiens-test.txt`
     
     It takes ~2 hours for human chr21 and mitochondria predictions to be generated in *\<PARENT_DIR\>/\<ORG_VERSION\>*.
 
