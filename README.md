@@ -7,7 +7,7 @@ Create genomic databases with SIFT predictions. Input is an organism's genomic D
 2. Perl  
   *DBI  
   *[Bioperl](http://www.bioperl.org/) for running DB::Fasta  
-  *LWP
+  *LWP  
   *Switch.pm   (`sudo apt-get install libswitch-perl`)
 
 ## Installation
