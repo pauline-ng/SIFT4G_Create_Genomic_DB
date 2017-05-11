@@ -140,7 +140,7 @@ Use this if you have a gff file (like that supplied from Phytozyme)
 1. Download and install [gffread](https://github.com/gpertea/gffread)
 
 2. Convert the gene annotation .gff file to a .gtf file (because SIFT processes gtf files).
-   Make sure column 2 in the gtf file says 'protein_coding'
+   In the gtf file, make sure the 9th column says **gene_biotype "protein_coding"** and 2nd column in the gtf file says **'protein_coding'**
 
    `mv <gff3.gz> <PARENT_DIR>/gene-annotation-src`  
    `gunzip <*.gff3.gz>`  
