@@ -1,6 +1,8 @@
 # SIFT4G_Create_Genomic_DB
 Create genomic databases with SIFT predictions. Input is an organism's genomic DNA (.fa) file and the gene annotation file (.gtf). Output will be a database that can be used with SIFT4G_Annotator.jar to annotate VCF files.
 
+*We can also build your database for you. However, we ask that the person who builds your SIFT database to be listed as a  middle author on your paper. <A HREF="http://sift.bii.a-star.edu.sg/sift-bin/contact.pl">You can email us the details.</A>*
+
 ## Requirements
 
 1. [SIFT 4G Algorithm](../../../../rvaser/sift4g)
