@@ -1,7 +1,7 @@
+GENE_DOWNLOAD_SITE=ftp://ftp.ensemblgenomes.org/pub/bacteria/release-34/gtf//bacteria_11_collection/candidatus_carsonella_ruddii_pv/Candidatus_carsonella_ruddii_pv.ASM1036v1.34.gtf.gz
+PEP_FILE=ftp://ftp.ensemblgenomes.org/pub/bacteria/release-34/fasta//bacteria_11_collection/candidatus_carsonella_ruddii_pv/pep/Candidatus_carsonella_ruddii_pv.ASM1036v1.34.pep.all.fa.gz
+CHR_DOWNLOAD_SITE=ftp://ftp.ensemblgenomes.org/pub/bacteria/release-34/fasta//bacteria_11_collection/candidatus_carsonella_ruddii_pv/dna/
 
-GENE_DOWNLOAD_SITE=ftp://ftp.ensemblgenomes.org/pub/bacteria/current//gtf//bacteria_11_collection/candidatus_carsonella_ruddii_pv/Candidatus_carsonella_ruddii_pv.ASM1036v1.34.gtf.gz
-PEP_FILE=ftp://ftp.ensemblgenomes.org/pub/bacteria/current//fasta//bacteria_11_collection/candidatus_carsonella_ruddii_pv/pep/Candidatus_carsonella_ruddii_pv.ASM1036v1.34.pep.all.fa.gz
-CHR_DOWNLOAD_SITE=ftp://ftp.ensemblgenomes.org/pub/bacteria/current//fasta//bacteria_11_collection/candidatus_carsonella_ruddii_pv/dna/
 GENETIC_CODE_TABLE=11
 GENETIC_CODE_TABLENAME=11
 MITO_GENETIC_CODE_TABLE=0
