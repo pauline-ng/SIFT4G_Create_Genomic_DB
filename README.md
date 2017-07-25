@@ -233,8 +233,10 @@ Complete instructions [here](http://sift-dna.org/sift4g/AnnotateVariants.html)
 | DBSNP_VCF_FILE *(optional)* | A \*.vcf.gz file that will be used to annotate variants with dbSNP rs id's |
 | GENETIC_CODE_TABLE | Genetic code to be used to translate the DNA sequence into proteins ([integer value based on NCBI](https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi))* |
 | GENETIC_CODE_TABLENAME *(not used)* | String to remind user what GENETIC_CODE_TABLE is being used | 
-| MITO_GENETIC_CODE_TABLE |  	Fasta sequences named Mt, chrM, Mito will use this genetic code. (This is for mitochondrial sequences). To disable or edit this feature, edit the function chr_is_mito in dna_protein_subs.pl  | 
+| MITO_GENETIC_CODE_TABLE |  	Fasta sequences named Mt, chrM, or Mito will use this genetic code. (This is for mitochondrial sequences). To disable or edit this feature, edit the function chr_is_mito in dna_protein_subs.pl  | 
 | MITO_GENETIC_CODE_TABLENAME *(not used)* | String to remind user what MITO_GENETIC_CODE_TABLE is being used |
+| PLASTID_GENETIC_CODE_TABLE | Fasta sequences named Pt, PT, chrPt, chrPT, or chloroplast will use this genetic code. (This is for chlorplasts). To disable or edit this feature, edit the function chr_is_plastid in dna_protein_subs.pl  |
+
 
 ---
 
