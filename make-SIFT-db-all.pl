@@ -94,9 +94,9 @@ print "make the fasta sequences\n";
 print "done making the fasta sequences\n";
 
 print "start siftsharp, getting the alignments\n"; 
-#my $siftsharp_command = "python " . $meta_hash{"SIFTSHARP_PATH"} . "/siftsharp.py --database " . $meta_hash{"PROTEIN_DB"} . " --queries " . $meta_hash{"FASTA_DIR"} . " --subst-dir " . $meta_hash{"SUBST_DIR"} . " --out-dir " . $meta_hash{"SIFT_SCORE_DIR"} . " --align-dir " . $meta_hash{"ALIGN_DIR"}; 
-; 
-my $combine_prot_fasta_command = "cat " .  $meta_hash{"PARENT_DIR"} . "/" . $meta_hash{"FASTA_DIR"} . "/*.fasta > " . $meta_hash{"PARENT_DIR"} . "/all_prot.fasta"; 
+
+my $combine_prot_fasta_command = "for file in " .  $meta_hash{"PARENT_DIR"} . "/" . $meta_hash{"FASTA_DIR"} . "/*.fasta ; do cat \"\$file\" >> " . $meta_hash{"PARENT_DIR"} . "/all_prot.fasta; done";
+
 `$combine_prot_fasta_command`;
 
 
