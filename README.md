@@ -173,11 +173,11 @@ This will download genome and gene files directly from Ensembl with the option _
   c. Set [genetic codes](https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi) in *GENETIC_CODE_TABLE, MITO_GENETIC_CODE_TABLE* 
   
   If you're working with a vertebrate, it's
-  ```GENETIC_CODE_TABLE=1
+  ```
+GENETIC_CODE_TABLE=1
 GENETIC_CODE_TABLENAME=Standard
 MITO_GENETIC_CODE_TABLE=2
 MITO_GENETIC_CODE_TABLENAME=Vertebrate Mitochondrial
-
 ```
   
   d. Set SIFT4G paths: *SIFT4G_PATH, PROTEIN_DB*
