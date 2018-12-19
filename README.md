@@ -162,7 +162,7 @@ This will download genome and gene files directly from Ensembl with the option _
 
 1. Set parameters in the config file.  
 
-   Use __test_files/candidatus_carsonella_ruddii_pv_config.txt__ as a template.
+   Use __test_files/saccharomyces_cerevisiae-template.txt__ as a template.
 
   a. Set weblinks to Ensembl genome and gene annotation files: *GENE_DOWNLOAD_SITE, PEP_FILE, CHR_DOWNLOAD_SITE*  
      Optional: *DBSNP_ORGANISM_DOWNLOAD_SITE*    
