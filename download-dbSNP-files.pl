@@ -33,10 +33,10 @@ if (exists ($meta_hash{"DBSNP_VCF_FILE"})) {
 my $download_destination_dir;
 if (exists ($meta_hash{"DBSNP_DIR"})) {
 	$download_destination_dir = $meta_hash{"PARENT_DIR"} . "/". $meta_hash{"DBSNP_DIR"};
-	if (!glob ("$download_destination_dir/*.vcf.gz")) {
-		print "No dbSNP VCF found\n";
-		exit (0);
-	}
+#	if (!glob ("$download_destination_dir/*.vcf.gz")) {
+#		print "No dbSNP VCF found\n";
+#		exit (0);
+#	}
 } else {
 	exit (0);
 }

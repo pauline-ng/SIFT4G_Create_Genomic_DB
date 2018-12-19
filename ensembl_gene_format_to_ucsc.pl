@@ -36,8 +36,8 @@ struct Transcript => {
 my $TRUE = 1;
 my $FALSE = 0;
 
-my $file = $ARGV[0]; 
-my $outfile = $ARGV[1]; 
+#my $file = $ARGV[0]; 
+#my $outfile =  $ARGV[1]; 
 
 sub adjustForCDSStartAndEnd {
 #    print "Adjust for CDS Starts and End...\n" .

@@ -37,19 +37,19 @@ my $meta_href = readMeta($meta_file);
 sub split_dbSNP_output_by_chromosomes() {
     print "Splitting dbSNP output file into different chromosomes.\n";
     my $meta_href = $_[0];
-    my %meta = %{$meta_href};
+    my %meta_hash = %{$meta_href};
     #my $chrlist = $meta{"CHR_LIST"};
     #my @chromosomes = split(",", $chrlist);
-    my $chr_fasta_dir = $meta_hash{"PARENT_DIR"} . "/". $meta{"CHR_DOWNLOAD_DEST"};
-    my @chromosomes = getChr ($meta_hash{"PARENT_DIR"} . "/". $meta{"GENE_DOWNLOAD_DEST"});
+    my $chr_fasta_dir = $meta_hash{"PARENT_DIR"} . "/". $meta_hash{"CHR_DOWNLOAD_DEST"};
+    my @chromosomes = getChr ($meta_hash{"PARENT_DIR"} . "/". $meta_hash{"GENE_DOWNLOAD_DEST"});
 
-    my $dbSNPFile = $meta_hash{"PARENT_DIR"} . "/".  $meta{"DBSNP_FINAL_OUTPUT_DIR"} . "/" . $meta{"DBSNP_VCF_FILE"};
+    my $dbSNPFile = $meta_hash{"PARENT_DIR"} . "/".  $meta_hash{"DBSNP_DIR"} . "/" . $meta_hash{"DBSNP_VCF_FILE"};
     my $cat_command = "cat";
     if ($dbSNPFile =~ /\.gz$/) {
 	$cat_command = "zcat"; 
     } 
     print "DBSNP main output file is : $dbSNPFile\n";
-    my $outputDir = $meta_hash{"PARENT_DIR"} . "/". $meta{"DBSNP_FINAL_OUTPUT_DIR"};
+    my $outputDir = $meta_hash{"PARENT_DIR"} . "/". $meta_hash{"DBSNP_DIR"};
     foreach my $chr (@chromosomes) {
 #	print "Awk-ing chromosome chr$chr\n";
 	#if ($chr eq "M") { $chr = "MT"; } # This is to cater to dbSNP calling Mitochrondria chromosome MT
