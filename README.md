@@ -24,7 +24,7 @@ Create genomic databases with SIFT predictions. Input is an organism's genomic D
    `cd test_files/candidatus_carsonella_ruddii_pv_config.txt`
    
    Edit the config file to set *\<PARENT_DIR\>, \<SIFT4G_PATH\>, \<PROTEIN_DB\>*     
-   [(See config details)](#configFile)
+   [(See config details)](#configFile) .  Be sure to use __full paths__
    
    `mkdir <PARENT_DIR>`
    
