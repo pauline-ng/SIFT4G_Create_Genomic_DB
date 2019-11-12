@@ -12,7 +12,12 @@
 ########################################################
 
 use strict;
-require 'common-utils.pl';
+#require 'common-utils.pl';
+use File::Basename;
+use Cwd qw(abs_path);
+my $directory_of_script = dirname(abs_path(__FILE__));
+require $directory_of_script . '/common-utils.pl';
+
 
 if (scalar @ARGV != 2) {
 
