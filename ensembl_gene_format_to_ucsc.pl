@@ -2,7 +2,12 @@
 use strict;
 use Class::Struct;
 use Switch;
-require 'common-utils.pl';
+#require 'common-utils.pl';
+use File::Basename;
+use Cwd qw(abs_path);
+my $directory_of_script = dirname(abs_path(__FILE__));
+require $directory_of_script . '/common-utils.pl';
+
 
 struct Transcript => {
         transcript_id =>  '$',
