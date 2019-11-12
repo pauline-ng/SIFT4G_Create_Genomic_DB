@@ -12,8 +12,13 @@ use strict;
 use DBI;
 use Class::Struct;
 use Bio::DB::Fasta;
-require 'common-utils.pl';
-require 'dna_protein_subs.pl';
+#require 'common-utils.pl';
+#require 'dna_protein_subs.pl';
+use File::Basename;
+use Cwd qw(abs_path);
+my $directory_of_script = dirname(abs_path(__FILE__));
+require $directory_of_script . '/common-utils.pl';
+require $directory_of_script . '/dna_protein_subs.pl';
 
 our $TRUE = 0;
 our $FALSE = 1;
