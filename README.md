@@ -142,17 +142,11 @@ Use this if you have a gff file (like that supplied from Phytozyme)
 1. Download and install [gffread](https://github.com/gpertea/gffread)
 
 2. Convert the gene annotation .gff file to a .gtf file (because SIFT processes gtf files).
-   In the gtf file, make sure the 9th column (attribute column) says **gene_biotype "protein_coding;"** for rows which are labelled as exon, CDS, stop_codon, and start_codon. 
 
    `mv <gff3.gz> <PARENT_DIR>/gene-annotation-src`  
    `gunzip <*.gff3.gz>`  
    `gffread <*.gff3> -T -o [FILENAME].gene.gtf` 
-   
-   `#below command is for Phytozyme, to ensure 'protein_coding' is in 2nd column`  
-   `perl -pe 's/phytozomev10/protein_coding/g' [FILENAME].gene.gtf > FILENAME.mod.gtf`  
-   
-   `mv FILENAME.mod.gtf [FILENAME].gtf`  
-   `gzip [FILENAME].gtf`   
+   `gzip [FILENAME].gene.gtf`   
 
 3. Then follow instructions for [building a database using a gtf file](#DBfromGTF)
     

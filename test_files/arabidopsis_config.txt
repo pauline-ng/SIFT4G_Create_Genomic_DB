@@ -1,0 +1,35 @@
+
+GENETIC_CODE_TABLE=1
+GENETIC_CODE_TABLENAME=Standard
+MITO_GENETIC_CODE_TABLE=11
+MITO_GENETIC_CODE_TABLENAME=Plant Plastid Code
+
+PARENT_DIR=/bigdrive/SIFT_databases/Arabidopsis
+ORG=Alyrata
+ORG_VERSION=Alyrata_384_v1
+
+#Running SIFT 4G
+SIFT4G_PATH=/bigdrive/sift4g/bin/sift4g
+PROTEIN_DB=/bigdrive/SIFT_databases/uniprot_sprot.fasta
+
+
+# Sub-directories, don't need to change
+GENE_DOWNLOAD_DEST=gene-annotation-src
+CHR_DOWNLOAD_DEST=chr-src
+LOGFILE=Log.txt
+ZLOGFILE=Log2.txt
+FASTA_DIR=fasta
+SUBST_DIR=subst
+ALIGN_DIR=SIFT_alignments
+SIFT_SCORE_DIR=SIFT_predictions
+SINGLE_REC_BY_CHR_DIR=singleRecords
+SINGLE_REC_WITH_SIFTSCORE_DIR=singleRecords_with_scores
+DBSNP_DIR=dbSNP
+
+# Doesn't need to change
+FASTA_LOG=fasta.log
+INVALID_LOG=invalid.log
+PEPTIDE_LOG=peptide.log
+ENS_PATTERN=ENS
+SINGLE_RECORD_PATTERN=:change:_aa1valid_dbsnp.singleRecord
+

@@ -60,7 +60,7 @@ foreach my $chr (@chromosomes) {
 	my $line = "\"#Position\tRef_allele\tNew_allele\tTranscript_id\tGene_id\tGene_name\tRegion\tRef_amino_acid\tNew_amino_acid\tPosition_of_amino_acid_substitution\tSIFT_score\tSIFT_median_sequence_info\tNum_seqs_at_position\tdbSNP_id\""; 
 	`echo $line > $db_sorted`; 
 
-	`cat $noncod_file $db_file  | sort -k1,1 -k2,2n -k3,3 -k4,4 -k16,16n -k12,12n | cut -f2-15  >> $db_sorted`;
+	`cat $noncod_file $db_file  | LC_ALL=C sort -k2,2n -k4,4 -k12,12n | cut -f2-15  >> $db_sorted`;
 	my $regions_file = $final_outfolder . "/" . $chr . ".regions";
 	my $command4 = "python make_regions_file.py $db_sorted $regions_file"; 	
 	print "$command4\n";

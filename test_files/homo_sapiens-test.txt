@@ -10,9 +10,8 @@ ORG_VERSION=GRCh38.83
 DBSNP_VCF_FILE=Homo_sapiens.vcf.gz
 
 #Running SIFT 4G
-SIFT4G_PATH=/mnt1/SIFT4G_2.0.0/bin/sift4g
-PROTEIN_DB=/mnt1/protein_db/uniprot90_Jul2016/uniref90.fasta
-COMPUTER=GIS-KATNISS
+SIFT4G_PATH=/bigdrive/sift4g/bin/sift4g
+PROTEIN_DB=/bigdrive/SIFT_databases/uniprot_sprot.fasta
 
 
 # Sub-directories, don't need to change

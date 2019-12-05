@@ -51,7 +51,7 @@ my %meta_hash = %{$meta_href};
 
 	my $dbsnp_href ;
 	if (-e $dbSNPFile && $dbSNPFile ne "") {
-		$dbsnp_href = &getDBSNPData($dbSNPFile, $errfile);
+		$dbsnp_href = &getDBSNPData($dbSNPFile,  $chr_of_interest, $errfile);
 	} else {
 	 	# if dbSNP file does not exist
 		my %hash; # create empty hash
@@ -183,7 +183,7 @@ sub check
 }
 
 sub getDBSNPData() {
-    my ($dbSNPFile, $errfile) = @_;
+    my ($dbSNPFile,  $chr_of_interest, $errfile) = @_;
 
 
     my %dbSNP_data_hash = ();
@@ -202,6 +202,8 @@ sub getDBSNPData() {
 #	    $dbsnp_alleles, $dbsnp_ancestral, $dbsnp_contigID, 
 #	    $dbsnp_contig2chrOrn, $dbsnp_contigAllele) = split(":", $dbSNP_data);
 	my ($dbsnp_chr, $dbsnp_coord, $dbsnp_rsid, $ref_allele, $dbsnp_new) = split ("\t", $dbSNP_data); 	
+
+	if ($dbsnp_chr eq  $chr_of_interest) {
 	my @alt_alleles = split (',', $dbsnp_new);
 	
 	    # Ignore indels and multple alleles (GA/CG)
@@ -217,6 +219,7 @@ sub getDBSNPData() {
 #		}
 		$dbSNP_data_hash{$key} = $dbsnp_rsid;			
 	    }
+	} # make sure chromosome matches
     } # end while 
     close(DBSNPFILE);
     close(ERRORFILE);

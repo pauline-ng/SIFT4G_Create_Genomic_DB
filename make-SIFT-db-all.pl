@@ -67,7 +67,8 @@ if ($ensembl_download) {
 } # end if downloading files from Ensembl
 
 print "converting gene format to use-able input\n";
-`perl ensembl_gene_format_to_ucsc.pl $metafile`; 
+`perl gff_gene_format_to_ucsc.pl $metafile`; 
+#`perl ensembl_gene_format_to_ucsc.pl $metafile`;
 print "done converting gene format\n";
 
 # decompress chromosome files so that Bio::DB can process them
