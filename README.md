@@ -146,6 +146,7 @@ Use this if you have a gff file (like that supplied from Phytozyme)
    `mv <gff3.gz> <PARENT_DIR>/gene-annotation-src`  
    `gunzip <*.gff3.gz>`  
    `gffread <*.gff3> -T -o [FILENAME].gene.gtf` 
+   
    `gzip [FILENAME].gene.gtf`   
 
 3. Then follow instructions for [building a database using a gtf file](#DBfromGTF)
