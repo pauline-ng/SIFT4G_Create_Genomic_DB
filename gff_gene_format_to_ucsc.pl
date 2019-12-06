@@ -417,14 +417,15 @@ GENE_LINE: while ($line = <IN>) {
 			$tx->protein_id ($geneinfo_hash{"protein_id"});
 		}
                 add_info_to_transcript ($tx, $line);
-#        }# elsif ($biotype =~ /RNA/) {
-	#	print NONCOD "$chr\t$biotype\t" .  $start .
-#			"\t" .  $end . "\t" . 
-#			$geneinfo_hash{"gene_id"} . "\t" . 
-#			$geneinfo_hash{"transcript_id"} . "\t" .
-#			$geneinfo_hash{"gene_name"} . "\t" .	
-#			$geneinfo_hash{"transcript_name"} . "\t" .
-#			$orientation . "\n";
+        } elsif ($geneinfo_hash{"gene_biotype"} && $geneinfo_hash{"gene_biotype"} =~ /RNA/) {
+		print NONCOD "$chr\t" . $geneinfo_hash{"gene_biotype"}
+			. "\t" .  $start .
+			"\t" .  $end . "\t" . 
+			$geneinfo_hash{"gene_id"} . "\t" . 
+			$geneinfo_hash{"transcript_id"} . "\t" .
+			$geneinfo_hash{"gene_name"} . "\t" .	
+			$geneinfo_hash{"transcript_name"} . "\t" .
+			$orientation . "\n";
 	} # end check biotype
 	} # end check that tx_id is not empty
 #	print_out_transcript ($tx);
