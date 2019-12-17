@@ -78,11 +78,11 @@ Files are already provided in [scripts_to_build_SIFT_db/test_files/homo_sapiens_
     perl make-SIFT-db-all.pl -config <config_file> [--ensembl_download] 
     
 __Directions for making a SIFT database from:__
-* [Ensembl download of genomic and gene annotation files](#DBfromEnsembl)  
+* [Ensembl (easiest)](#DBfromEnsembl)  
 * [local genomic and gene annotation file (.gtf)](#DBfromGTF)  
 * [local genomic and gene annotation file (.gff)](#DBfromGFF)  
 
-### <a name="DBfromEnsembl"></a>Creating a SIFT 4G Database based on Ensembl gene annotations  
+### <a name="DBfromEnsembl"></a>Creating a SIFT 4G Database from Ensembl
 
 This will download genome and gene files directly from Ensembl with the option __--ensembl_download__
 
