@@ -81,7 +81,41 @@ __Directions for making a SIFT database from:__
 * [Ensembl download of genomic and gene annotation files](#DBfromEnsembl)  
 * [local genomic and gene annotation file (.gtf)](#DBfromGTF)  
 * [local genomic and gene annotation file (.gff)](#DBfromGFF)  
+
+### <a name="DBfromEnsembl"></a>Creating a SIFT 4G Database based on Ensembl gene annotations  
+
+This will download genome and gene files directly from Ensembl with the option __--ensembl_download__
+
+1. Set parameters in the config file.  
+
+   Use __test_files/saccharomyces_cerevisiae-template.txt__ as a template.
+
+  a. Set weblinks to Ensembl genome and gene annotation files: *GENE_DOWNLOAD_SITE, PEP_FILE, CHR_DOWNLOAD_SITE*  
+     Optional: *DBSNP_ORGANISM_DOWNLOAD_SITE*    
+     [Config file details](#configFile)
+     
+  b. Set output paths: *PARENT_DIR, ORG, ORG_VERSION*  
+  
+  c. Set [genetic codes](https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi) in *GENETIC_CODE_TABLE, MITO_GENETIC_CODE_TABLE* 
+  
+  If you're working with a vertebrate, it's
+  ```
+GENETIC_CODE_TABLE=1
+GENETIC_CODE_TABLENAME=Standard
+MITO_GENETIC_CODE_TABLE=2
+MITO_GENETIC_CODE_TABLENAME=Vertebrate Mitochondrial
+```
+  
+  d. Set SIFT4G paths: *SIFT4G_PATH, PROTEIN_DB*
+  
+2. Create the database:  
+
+    `perl make-SIFT-db-all.pl -config <config file> --ensembl_download`
     
+3. [Check the database](#checkDB)
+
+4. [Annotate a VCF file with your database](#annotate)
+
 ### <a name="DBfromGTF"></a>Making a SIFT database from local genomic and gene annotation file (.gtf)
 
 1. Create a config file. 
@@ -155,51 +189,6 @@ Use this if you have a gff file (like that supplied from Phytozyme)
    gzip [FILENAME].gene.gtf   
 ```
 3. Then follow instructions for [building a database using a gtf file](#DBfromGTF)
-    
-### <a name="DBfromEnsembl"></a>Creating a SIFT 4G Database based on Ensembl gene annotations  
-
-This will download genome and gene files directly from Ensembl with the option __--ensembl_download__
-
-1. Set parameters in the config file.  
-
-   Use __test_files/saccharomyces_cerevisiae-template.txt__ as a template.
-
-  a. Set weblinks to Ensembl genome and gene annotation files: *GENE_DOWNLOAD_SITE, PEP_FILE, CHR_DOWNLOAD_SITE*  
-     Optional: *DBSNP_ORGANISM_DOWNLOAD_SITE*    
-     [Config file details](#configFile)
-     
-  b. Set output paths: *PARENT_DIR, ORG, ORG_VERSION*  
-  
-  c. Set [genetic codes](https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi) in *GENETIC_CODE_TABLE, MITO_GENETIC_CODE_TABLE* 
-  
-  If you're working with a vertebrate, it's
-  ```
-GENETIC_CODE_TABLE=1
-GENETIC_CODE_TABLENAME=Standard
-MITO_GENETIC_CODE_TABLE=2
-MITO_GENETIC_CODE_TABLENAME=Vertebrate Mitochondrial
-```
-  
-  d. Set SIFT4G paths: *SIFT4G_PATH, PROTEIN_DB*
-  
-2. Create the database:  
-
-    `perl make-SIFT-db-all.pl -config <config file> --ensembl_download`
-    
-3. [Check the database](#checkDB)
-
-4. [Annotate a VCF file with your database](#annotate)
-
-
-
-The database is stored in *\<PARENT_DIR\>/\<ORG_VERSION\>* which was set in the config file.
-
-    cd <PARENT_DIR>/<ORG_VERSION>
-
-A SIFT database is made for each chromosome in the file \<chr\>.gz  The SIFT database structure is described [here](http://sift-dna.org/sift4g/AnnotateVariants.html#SIFT4G_DB_STRUCTURE)
-
-    zcat <chr>.gz | more   # does it look all right?
-    zcat <chr>.gz | grep CDS | more # SIFT numeric scores will be in columns 10-12. If too many rows say "NA", that's a problem
     
     
 ## <a name="annotate"></a> Annotate VCF files with the SIFT Database
