@@ -131,6 +131,12 @@ __Directions for making a SIFT database from:__
 
     `perl make-SIFT-db-all.pl -config <config_file>`
     
+    **WAIT...**
+    
+    This can take 1-24 hours, depending on the size of the genome. Ignore warnings. It's done when the computer shows:
+    
+    `All done!`
+    
 4. [Check the database](#checkDB)
 
 5. [Annotate a VCF file with your database](#annotate)
@@ -142,13 +148,12 @@ Use this if you have a gff file (like that supplied from Phytozyme)
 1. Download and install [gffread](https://github.com/gpertea/gffread)
 
 2. Convert the gene annotation .gff file to a .gtf file (because SIFT processes gtf files).
-
-   `mv <gff3.gz> <PARENT_DIR>/gene-annotation-src`  
-   `gunzip <*.gff3.gz>`  
-   `gffread <*.gff3> -T -o [FILENAME].gene.gtf` 
-   
-   `gzip [FILENAME].gene.gtf`   
-
+```
+   mv <gff3.gz> <PARENT_DIR>/gene-annotation-src  
+   gunzip <*.gff3.gz>
+   gffread <*.gff3> -T -o [FILENAME].gene.gtf
+   gzip [FILENAME].gene.gtf   
+```
 3. Then follow instructions for [building a database using a gtf file](#DBfromGTF)
     
 ### <a name="DBfromEnsembl"></a>Creating a SIFT 4G Database based on Ensembl gene annotations  
@@ -185,11 +190,30 @@ MITO_GENETIC_CODE_TABLENAME=Vertebrate Mitochondrial
 
 4. [Annotate a VCF file with your database](#annotate)
 
-## <a name="checkDB"></a>Check the Database
+
 
 The database is stored in *\<PARENT_DIR\>/\<ORG_VERSION\>* which was set in the config file.
 
     cd <PARENT_DIR>/<ORG_VERSION>
+
+A SIFT database is made for each chromosome in the file \<chr\>.gz  The SIFT database structure is described [here](http://sift-dna.org/sift4g/AnnotateVariants.html#SIFT4G_DB_STRUCTURE)
+
+    zcat <chr>.gz | more   # does it look all right?
+    zcat <chr>.gz | grep CDS | more # SIFT numeric scores will be in columns 10-12. If too many rows say "NA", that's a problem
+    
+    
+## <a name="annotate"></a> Annotate VCF files with the SIFT Database
+
+1. Download the SIFT 4G Annotator (a Java executable) [here](http://sift-dna.org/sift4g/AnnotateVariants.html)  
+
+2. Commandline:
+   `java -jar <Path to SIFT4G_Annotator> -c -i <Path to input vcf file> -d <Path to SIFT4G database directory> -r <Path to your results folder> -t`
+
+Complete instructions [here](http://sift-dna.org/sift4g/AnnotateVariants.html)
+
+---
+## <a name="checkDB"></a>Check the Database
+
     more <PARENT_DIR>/<ORG_VERSION>/CHECK_GENES.LOG
     
 The file CHECK_GENES.LOG contains a summary of SIFT predictions by chromosome. There are 4 columns:
@@ -203,22 +227,6 @@ The last line summarizes predictions for the entire genome:
 __ALL   # (#/#)  # (#/#) # (#/#)__  
 
 Your database is __done__ if the percentages are high for the last 3 different columns. Woohoo!
-
-A SIFT database is made for each chromosome in the file \<chr\>.gz  The SIFT database structure is described [here](http://sift-dna.org/sift4g/AnnotateVariants.html#SIFT4G_DB_STRUCTURE)
-
-    zcat <chr>.gz | more   # does it look all right?
-    zcat <chr>.gz | grep CDS | more # SIFT numeric scores will be in columns 10-12. If too many rows say "NA", that's a problem
-    
-## <a name="annotate"></a> Annotate VCF files with the SIFT Database
-
-1. Download the SIFT 4G Annotator (a Java executable) [here](http://sift-dna.org/sift4g/AnnotateVariants.html)  
-
-2. Commandline:
-   `java -jar <Path to SIFT4G_Annotator> -c -i <Path to input vcf file> -d <Path to SIFT4G database directory> -r <Path to your results folder> -t`
-
-Complete instructions [here](http://sift-dna.org/sift4g/AnnotateVariants.html)
-
----
 
 ## <a name="configFile"></a>Configuration File
 
