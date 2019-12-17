@@ -214,6 +214,19 @@ Complete instructions [here](http://sift-dna.org/sift4g/AnnotateVariants.html)
 ---
 ## <a name="checkDB"></a>Check the Database
 
+The database is stored in *\<PARENT_DIR\>/\<ORG_VERSION\>* which was set in the config file.
+
+    cd <PARENT_DIR>/<ORG_VERSION>
+
+A SIFT database is made for each chromosome in the file \<chr\>.gz  The SIFT database structure is described [here](http://sift-dna.org/sift4g/AnnotateVariants.html#SIFT4G_DB_STRUCTURE)
+
+    zcat <chr>.gz | more   # does it look all right?
+    zcat <chr>.gz | grep CDS | more 
+    
+SIFT numeric scores will be in columns 10-12. If too many rows say "NA", that's a problem
+
+Global stats are available:
+
     more <PARENT_DIR>/<ORG_VERSION>/CHECK_GENES.LOG
     
 The file CHECK_GENES.LOG contains a summary of SIFT predictions by chromosome. There are 4 columns:
