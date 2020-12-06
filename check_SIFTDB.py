@@ -41,10 +41,10 @@ class SIFTPredMetric (object):
 	def __str__ (self):
 		predicted_on = self.num_damaging + self.num_tolerated
 #		print str (self.num_damaging) + " " + str (self.num_tolerated)
-                if predicted_on > 0:
+		if predicted_on > 0:
 #			print str (self.num_damaging) + " " + str (self.num_tolerated) 
 			return "%.1f" % ( float (self.num_damaging) / float (predicted_on) * 100.0)
-                else:
+		else:
                         return "-1"
 
 	def percent_predicted_on (self):
@@ -78,19 +78,19 @@ class SIFTPredMetric (object):
         	self.total += m.total
 
 def output_results (outfile, DNA_base_change_syn_nonsyn_counts, DNA_base_change_aa_pred, all_nonsyn_changes, dbSNP_predictions, novel_predictions, ref_predictions, aa_change_pred):
-        outfp = open (outfile, "w")
-        outfp.write (outfile + "\n")
-	for key, value in DNA_base_change_syn_nonsyn_counts.iteritems():
-                outfp.write (key + "\t" + str (value) + "\n")
-        outfp.write ("\n")
+	outfp = open (outfile, "w")
+	outfp.write (outfile + "\n")
+	for key, value in DNA_base_change_syn_nonsyn_counts.items():
+		outfp.write (key + "\t" + str (value) + "\n")
+	outfp.write ("\n")
 	if DNA_base_change_syn_nonsyn_counts["SYN"] == 0 and DNA_base_change_syn_nonsyn_counts["NONSYN"] == 0:
 		outfp.write ("no synonymous or nonsynonymous changes, empty file?")
 		outfp.close()
 		return	
-        ns_syn_ratio = float (DNA_base_change_syn_nonsyn_counts["NONSYN"])/float (DNA_base_change_syn_nonsyn_counts["SYN"])
-        outfp.write ("nonsyn/syn ratio: %.2f\n\n" % ns_syn_ratio)
+	ns_syn_ratio = float (DNA_base_change_syn_nonsyn_counts["NONSYN"])/float (DNA_base_change_syn_nonsyn_counts["SYN"])
+	outfp.write ("nonsyn/syn ratio: %.2f\n\n" % ns_syn_ratio)
 
-        outfp.write ("All Counts: ")
+	outfp.write ("All Counts: ")
 	outfp.write (str (all_nonsyn_changes) + " " + all_nonsyn_changes.counts() + "\n")
 #print str (all_nonsyn_changes)
 
@@ -127,11 +127,11 @@ def get_SIFT_prediction ( sift_score, sift_confidence):
 
 def  tabulate_dbSNP_changes (fields, dbSNP_predictions, novel_predictions, ref_predictions):
 	ref_aa = fields[REF_AA_IDX]
-        new_aa = fields[NEW_AA_IDX]
+	new_aa = fields[NEW_AA_IDX]
 	ref_base = fields[REF_BASE_IDX]
 	new_base = fields[NEW_BASE_IDX]
 	# not scoring stops or U's
-        if ref_aa == "*" or new_aa == "*" or ref_aa == "U" or new_aa == "U" or ref_aa == "" or new_aa == "" or ref_aa == "NA" or new_aa == "NA":
+	if ref_aa == "*" or new_aa == "*" or ref_aa == "U" or new_aa == "U" or ref_aa == "" or new_aa == "" or ref_aa == "NA" or new_aa == "NA":
 		return	
 	# scoring synonymous
 	if ref_aa == new_aa:
@@ -141,15 +141,15 @@ def  tabulate_dbSNP_changes (fields, dbSNP_predictions, novel_predictions, ref_p
 			return 
 	elif fields[DBSNP_IDX].startswith ("rs"): # nonsynonymous
 		var_to_update = dbSNP_predictions 
-		print "updating with " + fields[DBSNP_IDX]
-		print ' '.join (fields)
+		print ("updating with " + fields[DBSNP_IDX])
+		print (' '.join (fields))
 	elif fields[DBSNP_IDX].startswith ("novel"): #nonsynynmous
 		var_to_update = novel_predictions
 	elif fields[DBSNP_IDX] != "ref":
 		var_to_update = dbSNP_predictions
-		print "updating nonstandard " + fields[DBSNP_IDX]
+		print ("updating nonstandard " + fields[DBSNP_IDX])
 	else:
-		print "dbsnp field " + fields[DBSNP_IDX] + "\n"
+		print ("dbsnp field " + fields[DBSNP_IDX] + "\n")
 		return	# this is so ref changes aren't counted
 
 	var_to_update.inc_total()
@@ -171,7 +171,7 @@ def tabulate_aa_changes (fields, aa_change_pred):
 		return
 	aa_change_pred[ref_aa][new_aa].inc_total()
 	pred = get_SIFT_prediction (fields[SIFT_SCORE_IDX], fields[SIFT_CONF_IDX])
-        if pred == "DAMAGING":
+	if pred == "DAMAGING":
 		aa_change_pred[ref_aa][new_aa].inc_dam ()
 	elif pred == "TOLERATED":
 		aa_change_pred[ref_aa][new_aa].inc_tol() 
@@ -197,21 +197,21 @@ def output_matrix_of_SIFTPredMetrics (indices, matrix, out_fp):
 
 def process_chr_file (siftdb_infile, DNA_base_change_syn_nonsyn_counts, DNA_base_change_aa_pred, all_nonsyn_changes, dbSNP_predictions, novel_predictions, ref_predictions, aa_change_pred):
 
-        siftdb_fp = open (siftdb_infile, "r")
-        already_processed = set ()  # store positions that have been processed
+	siftdb_fp = open (siftdb_infile, "r")
+	already_processed = set()
 	for line in siftdb_fp.readlines():
-       		fields = line.split ('\t')
-	        variant_key = ':'.join (fields[0:3])
+		fields = line.split ('\t')
+		variant_key = ':'.join (fields[0:3])
 #		print variant_key + "\n"
 		if variant_key not in already_processed and len(fields) == 14 and fields[NEW_AA_IDX] != "" and fields[REF_AA_IDX] != "" and not line.startswith("#"):
 #               		print "processing " + variant_key
 #			print line
 			tabulate_DNA_changes (fields, DNA_base_change_syn_nonsyn_counts, DNA_base_change_aa_pred, all_nonsyn_changes)
-               		tabulate_dbSNP_changes (fields, dbSNP_predictions, novel_predictions, ref_predictions)
-	                tabulate_aa_changes (fields, aa_change_pred)
-       	        	already_processed.add (str(variant_key))
+			tabulate_dbSNP_changes (fields, dbSNP_predictions, novel_predictions, ref_predictions)
+			tabulate_aa_changes (fields, aa_change_pred)
+			already_processed.add (str(variant_key))
 #			print already_processed
-        siftdb_fp.close()
+	siftdb_fp.close()
 
 def read_metadoc (metadocfile):
 	metahash = {}
@@ -244,7 +244,7 @@ def tabulate_DNA_changes (fields, DNA_base_change_syn_nonsyn_counts, DNA_base_ch
 			all_nonsyn_changes.inc_total () 
 			DNA_base_change_aa_pred[ref_allele][new_allele].inc_total() 
 			pred = get_SIFT_prediction (fields[SIFT_SCORE_IDX], fields[SIFT_CONF_IDX])
-		        if pred == "DAMAGING":
+			if pred == "DAMAGING":
 				all_nonsyn_changes.inc_dam () 
 				DNA_base_change_aa_pred[ref_allele][new_allele].inc_dam()
 			elif pred == "TOLERATED" :
@@ -254,7 +254,7 @@ def tabulate_DNA_changes (fields, DNA_base_change_syn_nonsyn_counts, DNA_base_ch
 				all_nonsyn_changes.inc_not_pred()
 				DNA_base_change_aa_pred[ref_allele][new_allele].inc_not_pred()
 		else:
-			print "ERROR this case is not handled " + ' '.join (fields)
+			print ("ERROR this case is not handled " + ' '.join (fields))
 
 def initialize_metrics (DNA_base_change_syn_nonsyn_counts, DNA_base_change_aa_pred, all_nonsyn_changes, dbSNP_predictions, novel_predictions, ref_predictions, aa_change_pred):
 	DNA_base_change_syn_nonsyn_counts["SYN"] = 0
@@ -293,7 +293,7 @@ ref_predictions = SIFTPredMetric()
 #outfile = siftdb_infile + ".SIFTstats"
 
 if len (sys.argv) != 3:
-	print 'check_SIFTDB.py <infile> <outfile>'
+	print ('check_SIFTDB.py <infile> <outfile>')
 
 infile = sys.argv[1]
 outfile = sys.argv[2]

@@ -632,7 +632,7 @@ sub generateOutput() {
 			  }    #end for (my $j = 0; $j < $n; $j++)
 			  # Pauline Dec 4, 2013 - edit to write out synonymous substitutions
 			  my $aa_orig = substr( $aa_seq, $i, 1 );
-			  if (  $aa_orig ne "X" && $aa_orig ne "" && $aa_orig ne "*" && $aa_orig ne "Z" ) {
+			  if ($aa_orig &&  $aa_orig ne "X" && $aa_orig ne "" && $aa_orig ne "*" && $aa_orig ne "Z" ) {
 				  print SUBST $aa_orig . ( $i + 1 ) . $aa_orig . "\n";
 			  }
 		}    #end for (my $i = 0; $i < scalar(@arr_of_single_rec_arr); $i++)

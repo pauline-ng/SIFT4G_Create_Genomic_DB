@@ -58,12 +58,12 @@ def get_regions (filename, outfile):
 # main part
 
 if len (sys.argv) != 2: 
-        print 'check_SIFTDB.py <sorted file> <outfile>'
+        print ('check_SIFTDB.py <sorted file> <outfile>')
 
 #print sys.argv
 chrom_file = sys.argv[1]
 out_file = sys.argv[2]
 
-print "looking at " + chrom_file
+print ("looking at " + chrom_file)
 get_regions (chrom_file, out_file)
 

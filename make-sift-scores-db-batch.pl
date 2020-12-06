@@ -51,7 +51,6 @@ foreach my $chr (@chromosomes) {
 	print "db file $db_file\nnoncoding $noncod_file";
 # checking file
         my $check_outfile = $final_outfolder .  "/" . $chr .  "_SIFTDB_stats.txt";
-#       `python check_SIFTDB.py $db_file $check_outfile`;
 
 	# now sort the files
 	print "final outfolder is $final_outfolder\n";	
