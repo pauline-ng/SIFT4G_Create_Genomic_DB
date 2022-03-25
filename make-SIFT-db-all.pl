@@ -101,12 +101,18 @@ print "done making the fasta sequences\n";
 
 print "start siftsharp, getting the alignments\n"; 
 
-my $combine_prot_fasta_command = "for file in " .  $meta_hash{"PARENT_DIR"} . "/" . $meta_hash{"FASTA_DIR"} . "/*.fasta ; do cat \"\$file\" >> " . $meta_hash{"PARENT_DIR"} . "/all_prot.fasta; done";
+# remove all_prot.fasta if it already exists
+my $all_prot_fasta  =  $meta_hash{"PARENT_DIR"} . "/all_prot.fasta";
+if ( -e  $all_prot_fasta ) {
+	unlink $all_prot_fasta;
+}
+
+my $combine_prot_fasta_command = "for file in " .  $meta_hash{"PARENT_DIR"} . "/" . $meta_hash{"FASTA_DIR"} . "/*.fasta ; do cat \"\$file\" >> " . $all_prot_fasta . "; done";
 
 `$combine_prot_fasta_command`;
 
 
-my $sift4g_command = $meta_hash{"SIFT4G_PATH"} .  " -d " . $meta_hash{"PROTEIN_DB"} . " -q " . $meta_hash{"PARENT_DIR"} . "/all_prot.fasta --subst " .  $meta_hash{"PARENT_DIR"} . "/" . $meta_hash{"SUBST_DIR"} . " --out " .  $meta_hash{"PARENT_DIR"} . "/" . $meta_hash{"SIFT_SCORE_DIR"} . " --sub-results " ;
+my $sift4g_command = $meta_hash{"SIFT4G_PATH"} .  " -d " . $meta_hash{"PROTEIN_DB"} . " -q " . $all_prot_fasta . " --subst " .  $meta_hash{"PARENT_DIR"} . "/" . $meta_hash{"SUBST_DIR"} . " --out " .  $meta_hash{"PARENT_DIR"} . "/" . $meta_hash{"SIFT_SCORE_DIR"} . " --sub-results " ;
 
 print $sift4g_command . "\n";
 
