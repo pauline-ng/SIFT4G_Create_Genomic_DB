@@ -81,7 +81,7 @@ if (glob ("$fasta_dir/*.gz")) {
         if ($?) {
                 die "DNA files do not exist or did not unzip properly\n";
         }
-} elsif (glob ("$fasta_dir/*.fa") || glob ("$fasta_dir/*.fasta")) {
+} elsif (glob ("$fasta_dir/*.fa") || glob ("$fasta_dir/*.fasta") ||  glob ("$fasta_dir/*.fna")) {
         # *.fa or *.fasta files already exist
 } else {
         die "no DNA fasta files in $fasta_dir\n";

@@ -408,6 +408,7 @@ GENE_LINE: while ($line = <IN>) {
 	               	 $new_gene->chrom ($chr);
 			 $new_gene->biotype ("protein_coding");
 			 $new_gene->orientation ($orientation);	
+			 $new_gene->frame (0); # default in case exon numbers aren't in gtf file
 			 $transcript_hash{$tx_id} = $new_gene;
        		 }
 	        my $tx = $transcript_hash{$tx_id};
@@ -416,7 +417,8 @@ GENE_LINE: while ($line = <IN>) {
 			%geneinfo_hash = get_region_info ($geneinfo);
 			$tx->protein_id ($geneinfo_hash{"protein_id"});
 		}
-                add_info_to_transcript ($tx, $line);
+		add_info_to_transcript ($tx, $line);
+
         } elsif ($geneinfo_hash{"gene_biotype"} && $geneinfo_hash{"gene_biotype"} =~ /RNA/) {
 		print NONCOD "$chr\t" . $geneinfo_hash{"gene_biotype"}
 			. "\t" .  $start .
