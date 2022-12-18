@@ -198,6 +198,11 @@ Use this if you have a gff file (like that supplied from Phytozyme)
 2. Commandline:
    `java -jar <Path to SIFT4G_Annotator> -c -i <Path to input vcf file> -d <Path to SIFT4G database directory> -r <Path to your results folder> -t`
 
+*Note:*
+If your database files start with a 'chr', you must rename them without the 'chr' for the annotator to work.
+ 
+Example: `mv chr19.gz -> 19.gz; mv chr19.regions 19.regions; mv chr19_SIFTDB_stats.txt 19_SIFTDB_stats.txt`
+
 Complete instructions [here](http://sift-dna.org/sift4g/AnnotateVariants.html)
 
 ---
