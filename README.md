@@ -24,7 +24,7 @@ Create genomic databases with SIFT predictions. Input is an organism's genomic D
    `cd test_files/candidatus_carsonella_ruddii_pv_config.txt`
    
    Edit the config file to set *\<PARENT_DIR\>, \<SIFT4G_PATH\>, \<PROTEIN_DB\>*     
-   [(See config details)](#configFile) .  Be sure to use __full paths__
+   [(See config details)](#configuration-file) .  Be sure to use __full paths__
    
    `mkdir <PARENT_DIR>`
    
@@ -40,7 +40,7 @@ Create genomic databases with SIFT predictions. Input is an organism's genomic D
 
    It takes ~30 minutes for this database to be generated in *\<PARENT_DIR\>/\<ORG_VERSION\>*.  
 
-3. [Check the database](#checkDB)
+3. [Check the database](#check-the-database)
 
    The database should be in a folder named something like: candidatus_carsonella_ruddii_pv/ASM1036v1.34
    
@@ -71,7 +71,7 @@ Files are already provided in [scripts_to_build_SIFT_db/test_files/homo_sapiens_
     
     It takes ~2 hours for human chr21 and mitochondria predictions to be generated in *\<PARENT_DIR\>/\<ORG_VERSION\>*.
 
-3.  [Check the database](#checkDB)
+3.  [Check the database](#check-the-database)
 
 ## Usage
 
@@ -92,7 +92,7 @@ This will download genome and gene files directly from Ensembl with the option _
 
   a. Set weblinks to Ensembl genome and gene annotation files: *GENE_DOWNLOAD_SITE, PEP_FILE, CHR_DOWNLOAD_SITE*  
      Optional: *DBSNP_ORGANISM_DOWNLOAD_SITE*    
-     [Config file details](#configFile)
+     [Config file details](#configuration-file)
      
   b. Set output paths: *PARENT_DIR, ORG, ORG_VERSION*  
   
@@ -112,7 +112,7 @@ MITO_GENETIC_CODE_TABLENAME=Vertebrate Mitochondrial
 
     `perl make-SIFT-db-all.pl -config <config file> --ensembl_download`
     
-3. [Check the database](#checkDB)
+3. [Check the database](#check-the-database)
 
 4. [Annotate a VCF file with your database](#annotate)
 
@@ -129,7 +129,7 @@ MITO_GENETIC_CODE_TABLENAME=Vertebrate Mitochondrial
       Check *GENETIC_CODE_TABLE* and *MITO_GENETIC_CODE_TABLE* is set correctly.  
       Optional to set: *\<DBSNP_VCF_FILE\>*
    
-      [See config details](#configFile).
+      [See config details](#configuration-file).
 
 2. Put the genomic fasta files and the gene annotation files in their proper place:
 
@@ -171,7 +171,7 @@ MITO_GENETIC_CODE_TABLENAME=Vertebrate Mitochondrial
     
     `All done!`
     
-4. [Check the database](#checkDB)
+4. [Check the database](#check-the-database)
 
 5. [Annotate a VCF file with your database](#annotate)
     
