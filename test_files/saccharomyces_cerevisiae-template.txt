@@ -15,6 +15,7 @@ ORG=saccharomyces_cerevisiae
 ORG_VERSION=EF4.74
 
 #Running SIFT 4G
+#If using docker, should be SIFT4G_PATH=/sift4g/bin/sift4g
 SIFT4G_PATH=/bigdrive/sift4g/bin/sift4g
 PROTEIN_DB=/bigdrive/SIFT_databases/uniprot_sprot.fasta
 

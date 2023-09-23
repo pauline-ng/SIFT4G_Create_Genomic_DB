@@ -2,10 +2,10 @@
 Create genomic databases with SIFT predictions. Input is an organism's genomic DNA (.fa) file and the gene annotation file (.gtf). Output will be a database that can be used with SIFT4G_Annotator.jar to annotate VCF files.
 
 # Contents
-- Running the code with Docker(#running-the-code-with-docker)
-- Running the code locally(#running-code-locally)
-- Creating your own database(#creating-your-own-database)
-- Check the database(#check-the-database)
+- [Running the code with Docker](#running-the-code-with-docker)
+- [Running the code locally](#running-code-locally)
+- [Creating your own database](#creating-your-own-database)
+- [Check the database](#check-the-database)
 
 ## Running the code with Docker
 
@@ -23,20 +23,24 @@ docker build -t sift4g_db .
 ```
 docker run -it --user $(id -u):$(id -g) -v <your_directory>:<your_directory> sift4g_db /bin/bash
 ```
-Make sure to mount directories that contain your protein database, the directory containing SIFT4G_Create_Genomic_DB,
- and your gene files.
+Make sure to mount directories that contain:
+- your protein database
+- the directory containing SIFT4G_Create_Genomic_DB
+- your gene and genome files
 
-For example, my `SIFT4G_Create_Genomic_DB` is in `/home/pauline` and my protein database is in `/bigdrive` so my command is:
+For example, the full path of my `SIFT4G_Create_Genomic_DB` directory is  `/home/pauline/SIFT4G_Create_Genomic_DB` and my protein database is in `/bigdrive/SIFT_databases/uniprot_sprot.fasta` so my command is:
 
 ```
 docker run -it --user $(id -u):$(id -g) -v /home/pauline:/home/pauline -v /bigdrive:/bigdrive sift4g_db /bin/bash
 ```
-3. Test Docker installation
-3a.  Ruddii example
+
+3. Test the Docker installation
+
+3a. C. ruddii example
 C. ruddii is a small genome and can quickly test if everything is working. The genome and gene files are automatically downloaded from Ensembl.
 
 1. Set variables in configuration file.  
-   `cd test_files/candidatus_carsonella_ruddii_pv_config.txt`
+   `cd <your_dir>/SIFT4G_Create_Genomic_DB/test_files/candidatus_carsonella_ruddii_pv_config.txt`
    
    Edit the config file to set *\<PARENT_DIR\>,  \<PROTEIN_DB\>*     
    [(See config details)](#configFile) .  Be sure to use __full paths__
@@ -49,8 +53,9 @@ C. ruddii is a small genome and can quickly test if everything is working. The g
 
 2. Make the database:
     ```
-    cd /SIFT4G_Create_Genomic_DB
-    perl make-SIFT-db-all.pl -config test_files/candidatus_carsonella_ruddii_pv_config.txt --ensembl_download
+    docker run -it --user $(id -u):$(id -g) -v /home/pauline:/home/pauline -v /bigdrive:/bigdrive sift4g_db /bin/bash
+
+    perl make-SIFT-db-all.pl -config <your_dir>/SIFT4G_Create_Genomic_DB/test_files/candidatus_carsonella_ruddii_pv_config.txt --ensembl_download
     ``` 
 
    It takes ~30 minutes for this database to be generated in *\<PARENT_DIR\>/\<ORG_VERSION\>*.  
@@ -72,7 +77,7 @@ Files are already provided in [scripts_to_build_SIFT_db/test_files/homo_sapiens_
 
 1.  Set the variables in the config file.
 
-    `cd scripts_to_build_SIFT_db/test_files/`
+    `cd <SIFT4G_Create_Genomic_DB directory>/test_files/`
     
     Set variables in the config file __homo_sapiens-test.txt__:   \<PARENT_DIR\> and *\<PROTEIN_DB\>*
     
@@ -81,9 +86,11 @@ Files are already provided in [scripts_to_build_SIFT_db/test_files/homo_sapiens_
 
 2.  Make the database:
 
+    Inside the Docker container
     ```
-     cd /SIFT4G_Create_Genomic_DB
-     perl make-SIFT-db-all.pl -config test_files/homo_sapiens-test.txt
+     docker run -it --user $(id -u):$(id -g) -v <your_directory>:<your_directory> sift4g_db /bin/bash
+
+     perl make-SIFT-db-all.pl -config <SIFT4G_Create_Genomic_DB directory>/test_files/homo_sapiens-test.txt
      ```
     
     It takes ~2 hours for human chr21 and mitochondria predictions to be generated in *\<PARENT_DIR\>/\<ORG_VERSION\>*.
@@ -95,9 +102,12 @@ Please go to
 [Creating your own database](pauline-ng/SIFT4G_Create_Genomic_DB#creating-your-own-database)
 to read how to make your own database
 
-## Testing
+4. You can also run the SIFT4G Annotator inside the container
+
 ```
-perl make-SIFT-db-all.pl -config test_files/candidatus_carsonella_ruddii_pv_config.txt --ensembl_download
+docker run -it --user $(id -u):$(id -g) -v <your_directory>:<your_directory> sift4g_db /bin/bash
+
+java -jar <Path to SIFT4G_Annotator> -c -i <Path to input vcf file> -d <Path to SIFT4G database directory> -r <Path to your results folder> -t
 ```
 
 # Running the code locally 
@@ -339,7 +349,7 @@ Your database is __done__ if the percentages are high for the last 3 different c
 
 | Parameter | Description  |
 |--- | --- |
-| SIFT4G_PATH | Path to the executable sift4g (installed in step 1 of Requirements) |
+| SIFT4G_PATH | Path to the executable sift4g (installed in step 1 of Requirements). If running with Docker, it's /sift4g/bin/sift4g |
 | PROTEIN_DB | Path to the protein database (.fa or .fasta) Recommend UniProt 90 |
 | PARENT_DIR    | Path where all the output will be generated. User must have write access. |
 | ORG           | Organism name, e.g. homo_sapiens, rat, etc. Should be one word and no special characters. |
