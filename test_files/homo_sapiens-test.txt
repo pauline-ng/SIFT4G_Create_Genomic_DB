@@ -4,13 +4,15 @@ GENETIC_CODE_TABLENAME=Standard
 MITO_GENETIC_CODE_TABLE=2
 MITO_GENETIC_CODE_TABLENAME=Vertebrate Mitochondrial
 
-PARENT_DIR=./test_files/homo_sapiens_small
+PARENT_DIR=/home/pauline/SIFT4G_Create_Genomic_DB/test_files/homo_sapiens_small
 ORG=homo_sapiens
 ORG_VERSION=GRCh38.83
 DBSNP_VCF_FILE=Homo_sapiens.vcf.gz
 
-#Running SIFT 4G
-SIFT4G_PATH=/bigdrive/sift4g/bin/sift4g
+#Running SIFT4G, this path works for the Dockerfile
+SIFT4G_PATH=/sift4g/bin/sift4g
+
+#PROTEIN_DB needs to be uncompressed
 PROTEIN_DB=/bigdrive/SIFT_databases/uniprot_sprot.fasta
 
 

@@ -1,7 +1,99 @@
 # SIFT4G_Create_Genomic_DB
 Create genomic databases with SIFT predictions. Input is an organism's genomic DNA (.fa) file and the gene annotation file (.gtf). Output will be a database that can be used with SIFT4G_Annotator.jar to annotate VCF files.
 
-*We can also build your database for you. However, we ask that the person who builds your SIFT database to be listed as a  middle author on your paper. You can contact us for details.*
+# Creating Database with Docker
+
+```
+## Building Docker image
+
+This uses the CPU version of SIFT4G.
+
+1. Build Docker image
+
+```
+git clone https://github.com/pauline-ng/SIFT4G_Create_Genomic_DB.git
+docker build -t sift4g_db .
+```
+
+2. Run an interactive container
+```
+docker run -it --user $(id -u):$(id -g) -v <your_directory>:<your_directory> sift4g_db /bin/bash
+```
+Make sure to mount directories that contain your protein database, the directory containing SIFT4G_Create_Genomic_DB,
+ anddocker run -it --user $(id -u):$(id -g) -v /home/pauline:/home/pauline -v /bigdrive:/bigdrive sift4g_db /bin/bash
+
+
+```
+3. Test Docker installation
+3a.  Ruddii example
+C. ruddii is a small genome and can quickly test if everything is working. The genome and gene files are automatically downloaded from Ensembl.
+
+1. Set variables in configuration file.  
+   `cd test_files/candidatus_carsonella_ruddii_pv_config.txt`
+   
+   Edit the config file to set *\<PARENT_DIR\>,  \<PROTEIN_DB\>*     
+   [(See config details)](#configFile) .  Be sure to use __full paths__
+   
+   `mkdir <PARENT_DIR>`
+   
+   
+   
+
+
+2. Make the database:
+    ```
+    cd /SIFT4G_Create_Genomic_DB
+    perl make-SIFT-db-all.pl -config test_files/candidatus_carsonella_ruddii_pv_config.txt --ensembl_download
+    ``` 
+
+   It takes ~30 minutes for this database to be generated in *\<PARENT_DIR\>/\<ORG_VERSION\>*.  
+
+3. [Check the database](#checkDB)
+
+   The database should be in a folder named something like: candidatus_carsonella_ruddii_pv/ASM1036v1.34
+   
+
+### Partial *Homo sapiens* example 
+
+This example uses local files to build a database of human chr21 and mitochondrial genes. Do this exercise if you are building a SIFT database with a genome that is on your local computer.
+
+Files are already provided in [scripts_to_build_SIFT_db/test_files/homo_sapiens_small](./test_files/homo_sapiens_small)
+   - Genomic DNA (.fa.gz)  
+   - Gene annotation (.gtf.gz)  
+   - dbSNP annotations (.vcf.gz) 
+
+
+1.  Set the variables in the config file.
+
+    `cd scripts_to_build_SIFT_db/test_files/`
+    
+    Set variables in the config file __homo_sapiens-test.txt__:   \<PARENT_DIR\> and *\<PROTEIN_DB\>*
+    
+    Note that \<PARENT_DIR\> should be set to the full path of <SIFT4G_Create_Genomic_DB directory>/test_files/homo_sapiens_small  
+    SIFT scripts will look for the genome and gene annotation files in that folder (which are provided in this example).
+
+2.  Make the database:
+
+    ```
+     cd /SIFT4G_Create_Genomic_DB
+     perl make-SIFT-db-all.pl -config test_files/homo_sapiens-test.txt
+     ```
+    
+    It takes ~2 hours for human chr21 and mitochondria predictions to be generated in *\<PARENT_DIR\>/\<ORG_VERSION\>*.
+
+3.  [Check the database](#checkDB)
+
+
+Please go to 
+[Usage section](https://github.com/pauline-ng/SIFT4G_Create_Genomic_DB#usage)
+to read how to make your own database
+
+## Testing
+```
+perl make-SIFT-db-all.pl -config test_files/candidatus_carsonella_ruddii_pv_config.txt --ensembl_download
+```
+
+# Installing Locally
 
 ## Requirements
 
