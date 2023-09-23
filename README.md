@@ -16,6 +16,7 @@ This uses the CPU version of SIFT4G.
 
 ```
 git clone https://github.com/pauline-ng/SIFT4G_Create_Genomic_DB.git
+cd SIFT4G_Create_Genomic_DB
 docker build -t sift4g_db .
 ```
 
