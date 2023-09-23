@@ -1,12 +1,16 @@
 # SIFT4G_Create_Genomic_DB
 Create genomic databases with SIFT predictions. Input is an organism's genomic DNA (.fa) file and the gene annotation file (.gtf). Output will be a database that can be used with SIFT4G_Annotator.jar to annotate VCF files.
 
-# Creating Database with Docker
+# Contents
+- Running the code with Docker(#running-the-code-with-docker)
+- Running the code locally(#running-code-locally)
+- Creating your own database(#creating-your-own-database)
+- Check the database(#check-the-database)
 
-```
-## Building Docker image
+## Running the code with Docker
 
 This uses the CPU version of SIFT4G.
+
 
 1. Build Docker image
 
@@ -20,9 +24,12 @@ docker build -t sift4g_db .
 docker run -it --user $(id -u):$(id -g) -v <your_directory>:<your_directory> sift4g_db /bin/bash
 ```
 Make sure to mount directories that contain your protein database, the directory containing SIFT4G_Create_Genomic_DB,
- anddocker run -it --user $(id -u):$(id -g) -v /home/pauline:/home/pauline -v /bigdrive:/bigdrive sift4g_db /bin/bash
+ and your gene files.
 
+For example, my `SIFT4G_Create_Genomic_DB` is in `/home/pauline` and my protein database is in `/bigdrive` so my command is:
 
+```
+docker run -it --user $(id -u):$(id -g) -v /home/pauline:/home/pauline -v /bigdrive:/bigdrive sift4g_db /bin/bash
 ```
 3. Test Docker installation
 3a.  Ruddii example
@@ -48,7 +55,7 @@ C. ruddii is a small genome and can quickly test if everything is working. The g
 
    It takes ~30 minutes for this database to be generated in *\<PARENT_DIR\>/\<ORG_VERSION\>*.  
 
-3. [Check the database](#checkDB)
+3. [Check the database](#check-the-database)
 
    The database should be in a folder named something like: candidatus_carsonella_ruddii_pv/ASM1036v1.34
    
@@ -81,11 +88,11 @@ Files are already provided in [scripts_to_build_SIFT_db/test_files/homo_sapiens_
     
     It takes ~2 hours for human chr21 and mitochondria predictions to be generated in *\<PARENT_DIR\>/\<ORG_VERSION\>*.
 
-3.  [Check the database](#checkDB)
+3.  [Check the database](#check-the-database)
 
 
 Please go to 
-[Usage section](https://github.com/pauline-ng/SIFT4G_Create_Genomic_DB#usage)
+[Creating your own database](pauline-ng/SIFT4G_Create_Genomic_DB#creating-your-own-database)
 to read how to make your own database
 
 ## Testing
@@ -93,7 +100,7 @@ to read how to make your own database
 perl make-SIFT-db-all.pl -config test_files/candidatus_carsonella_ruddii_pv_config.txt --ensembl_download
 ```
 
-# Installing Locally
+# Running the code locally 
 
 ## Requirements
 
@@ -165,7 +172,7 @@ Files are already provided in [scripts_to_build_SIFT_db/test_files/homo_sapiens_
 
 3.  [Check the database](#checkDB)
 
-## Usage
+## Creating your own database
 
     perl make-SIFT-db-all.pl -config <config_file> [--ensembl_download] 
     
@@ -298,6 +305,7 @@ Example: `mv chr19.gz -> 19.gz; mv chr19.regions 19.regions; mv chr19_SIFTDB_sta
 Complete instructions [here](http://sift-dna.org/sift4g/AnnotateVariants.html)
 
 ---
+## Check the Database
 ## <a name="checkDB"></a>Check the Database
 
 The database is stored in *\<PARENT_DIR\>/\<ORG_VERSION\>* which was set in the config file.
