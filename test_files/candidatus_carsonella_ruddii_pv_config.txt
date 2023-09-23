@@ -1,5 +1,5 @@
 GENE_DOWNLOAD_SITE=ftp://ftp.ensemblgenomes.org/pub/bacteria/release-34/gtf//bacteria_11_collection/candidatus_carsonella_ruddii_pv/Candidatus_carsonella_ruddii_pv.ASM1036v1.34.gtf.gz
-PEP_FILE=ftp://ftp.ensemblgenomes.org/pub/bacteria/release-34/fasta//bacteria_11_collection/candidatus_carsonella_ruddii_pv/pep/Candidatus_carsonella_ruddii_pv.ASM1036v1.34.pep.all.fa.gz
+PEP_FILE=ftp://ftp.ensemblgenomes.org/pub/bacteria/release-34/fasta//bacteria_11_collection/candidatus_carsonella_ruddii_pv/pep/Candidatus_carsonella_ruddii_pv.ASM1036v1.pep.all.fa.gz
 CHR_DOWNLOAD_SITE=ftp://ftp.ensemblgenomes.org/pub/bacteria/release-34/fasta//bacteria_11_collection/candidatus_carsonella_ruddii_pv/dna/
 
 GENETIC_CODE_TABLE=11
@@ -13,7 +13,9 @@ ORG_VERSION=ASM1036v1.34
 
 
 #Running SIFT 4G
-SIFT4G_PATH=/bigdrive/sift4g/bin/sift4g
+SIFT4G_PATH=/sift4g/bin/sift4g
+
+# protein database must be uncompressed
 PROTEIN_DB=/bigdrive/SIFT_databases/uniprot_sprot.fasta
 
 

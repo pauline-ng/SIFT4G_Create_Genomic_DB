@@ -9,7 +9,7 @@ ORG=Alyrata
 ORG_VERSION=Alyrata_384_v1
 
 #Running SIFT 4G
-SIFT4G_PATH=/bigdrive/sift4g/bin/sift4g
+SIFT4G_PATH=/sift4g/bin/sift4g
 PROTEIN_DB=/bigdrive/SIFT_databases/uniprot_sprot.fasta
 
 
