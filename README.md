@@ -3,7 +3,7 @@ Create genomic databases with SIFT predictions. Input is an organism's genomic D
 
 # Contents
 - [Running the code with Docker](#running-the-code-with-docker)
-- [Running the code locally](#running-code-locally)
+- [Running the code locally](#running-the-code-locally)
 - [Creating your own database](#creating-your-own-database)
 - [Check the database](#check-the-database)
 
@@ -37,8 +37,9 @@ docker run -it --user $(id -u):$(id -g) -v /home/pauline:/home/pauline -v /bigdr
 
 3. Test the Docker installation
 
-3a. C. ruddii example
-C. ruddii is a small genome and can quickly test if everything is working. The genome and gene files are automatically downloaded from Ensembl.
+3a. <i>C. ruddii</i> example
+
+<i>C. ruddii</i> is a small genome and can quickly test if everything is working. The genome and gene files are automatically downloaded from Ensembl.
 
 1. Set variables in configuration file.  
    `cd <your_dir>/SIFT4G_Create_Genomic_DB/test_files/candidatus_carsonella_ruddii_pv_config.txt`
@@ -52,10 +53,12 @@ C. ruddii is a small genome and can quickly test if everything is working. The g
    
 
 
-2. Make the database:
+2. Create the database inside the docker container:
     ```
+    # Make an interactive session of the docker container
     docker run -it --user $(id -u):$(id -g) -v /home/pauline:/home/pauline -v /bigdrive:/bigdrive sift4g_db /bin/bash
 
+    # Run the code inside the container
     perl make-SIFT-db-all.pl -config <your_dir>/SIFT4G_Create_Genomic_DB/test_files/candidatus_carsonella_ruddii_pv_config.txt --ensembl_download
     ``` 
 
@@ -70,7 +73,7 @@ C. ruddii is a small genome and can quickly test if everything is working. The g
 
 This example uses local files to build a database of human chr21 and mitochondrial genes. Do this exercise if you are building a SIFT database with a genome that is on your local computer.
 
-Files are already provided in [scripts_to_build_SIFT_db/test_files/homo_sapiens_small](./test_files/homo_sapiens_small)
+Files are already provided in [/SIFT4G_Create_Genomic_DB/test_files/homo_sapiens_small](./test_files/homo_sapiens_small)
    - Genomic DNA (.fa.gz)  
    - Gene annotation (.gtf.gz)  
    - dbSNP annotations (.vcf.gz) 
@@ -85,12 +88,14 @@ Files are already provided in [scripts_to_build_SIFT_db/test_files/homo_sapiens_
     Note that \<PARENT_DIR\> should be set to the full path of <SIFT4G_Create_Genomic_DB directory>/test_files/homo_sapiens_small  
     SIFT scripts will look for the genome and gene annotation files in that folder (which are provided in this example).
 
-2.  Make the database:
+2.  Create the database:
 
-    Inside the Docker container
+   
     ```
-     docker run -it --user $(id -u):$(id -g) -v <your_directory>:<your_directory> sift4g_db /bin/bash
+     # Make an interactive session of the docker container
+    docker run -it --user $(id -u):$(id -g) -v <your_directory>:<your_directory> sift4g_db /bin/bash
 
+    # Run the code to make the database inside the container
      perl make-SIFT-db-all.pl -config <SIFT4G_Create_Genomic_DB directory>/test_files/homo_sapiens-test.txt
      ```
     
@@ -111,7 +116,8 @@ docker run -it --user $(id -u):$(id -g) -v <your_directory>:<your_directory> sif
 java -jar <Path to SIFT4G_Annotator> -c -i <Path to input vcf file> -d <Path to SIFT4G database directory> -r <Path to your results folder> -t
 ```
 
-# Running the code locally 
+## Running the code locally 
+Follow these instructions if you are ***NOT*** using Docker.
 
 ## Requirements
 
@@ -217,7 +223,8 @@ MITO_GENETIC_CODE_TABLENAME=Vertebrate Mitochondrial
 ```
   
   d. Set SIFT4G paths: *SIFT4G_PATH, PROTEIN_DB*
-  
+     If using Docker, `SIFT4G_PATH=SIFT4G_PATH=/sift4g/bin/sift4g`
+     
 2. Create the database:  
 
     `perl make-SIFT-db-all.pl -config <config file> --ensembl_download`
@@ -238,10 +245,11 @@ MITO_GENETIC_CODE_TABLENAME=Vertebrate Mitochondrial
    b. In \<my_org_config.txt\>, set *\<PARENT_DIR\>, \<ORG\>, \<ORG_VERSION\>, \<SIFT4G_PATH\>, \<PROTEIN_DB\>*  
       Check *GENETIC_CODE_TABLE* and *MITO_GENETIC_CODE_TABLE* is set correctly.  
       Optional to set: *\<DBSNP_VCF_FILE\>*
+      If using Docker, `SIFT4G_PATH=SIFT4G_PATH=/sift4g/bin/sift4g`
    
       [See config details](#configFile).
 
-2. Put the genomic fasta files and the gene annotation files in their proper place:
+3. Put the genomic fasta files and the gene annotation files in their proper place:
 
    a. Make the folders:
    
@@ -271,7 +279,7 @@ MITO_GENETIC_CODE_TABLENAME=Vertebrate Mitochondrial
 
     Example of the file structure can be found in [test_files/homo_sapiens_small](./test_files/homo_sapiens_small)
     
-3. Run command: 
+4. Run command: 
 
     `perl make-SIFT-db-all.pl -config <config_file>`
     
@@ -281,9 +289,9 @@ MITO_GENETIC_CODE_TABLENAME=Vertebrate Mitochondrial
     
     `All done!`
     
-4. [Check the database](#checkDB)
+5. [Check the database](#checkDB)
 
-5. [Annotate a VCF file with your database](#annotate)
+6. [Annotate a VCF file with your database](#annotate)
     
 ### <a name="DBfromGFF"></a>Making a SIFT database from genomic DNA (.fa.gz) and gene annotation file (.gff)
 
